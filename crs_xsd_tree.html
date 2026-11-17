@@ -21,29 +21,28 @@
   #stats div { font-size: 0.85rem; margin-bottom: 4px; color: #94a3b8; }
   #main { flex: 1; background: #0f172a; padding: 32px; overflow-y: auto; position: relative; }
   #tree { max-width: 900px; }
-  .node { display: flex; align-items: center; padding: 10px 14px; border-radius: 8px; margin: 4px 0; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; background: rgba(30,41,59,0.4); }
-  .node:hover { background: rgba(59,130,246,0.1); border-color: #3b82f6; }
-  .node.expanded { background: rgba(37,99,235,0.1); border-color: #2563eb; }
-  .node.collapsed .children { display: none; }
-  .node.leaf { cursor: default; }
-  .node.leaf:hover { background: transparent; border-color: transparent; }
-  .toggle { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; margin-right: 10px; font-size: 12px; font-weight: bold; color: #94a3b8; }
-  .node.expanded .toggle { color: #38bdf8; }
-  .node.collapsed .toggle { color: #64748b; }
-  .node.leaf .toggle { visibility: hidden; }
+  details { display: block; margin: 4px 0; }
+  summary { display: flex; align-items: center; padding: 10px 14px; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; background: rgba(30,41,59,0.4); outline: none; }
+  summary:hover { background: rgba(59,130,246,0.1); border-color: #3b82f6; }
+  summary.root-node { background: rgba(59,130,246,0.15) !important; border-color: #3b82f6 !important; }
+  details[open] > summary { background: rgba(37,99,235,0.1); border-color: #2563eb; }
+  summary::-webkit-details-marker { display: none; }
+  summary::marker { display: none; }
+  .toggle { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; margin-right: 10px; font-size: 12px; font-weight: bold; color: #94a3b8; user-select: none; }
+  details[open] > summary .toggle { color: #38bdf8; }
+  details:not([open]) > summary .toggle { color: #64748b; }
+  .leaf-summary .toggle { visibility: hidden; cursor: default; }
   .elem-name { font-weight: 600; color: #f8fafc; flex: 1; min-width: 120px; }
   .elem-type { color: #a78bfa; font-size: 0.85rem; margin-right: 10px; min-width: 140px; }
-  .element-children { padding-left: 26px; border-left: 2px solid #334155; margin-top: 6px; }
-  .attr-list { padding-left: 26px; border-left: 2px solid #334155; margin-top: 4px; }
-  .root-node { background: rgba(59,130,246,0.15) !important; border-color: #3b82f6 !important; }
-  .attr-row { font-size: 0.8rem; color: #94a3b8; padding: 6px 14px 6px 50px; margin: 2px 0; background: rgba(15,23,42,0.3); border-radius: 6px; border-left: 3px solid #3b82f6; }
+  .children { padding-left: 26px; border-left: 2px solid #334155; margin-top: 6px; animation: slideDown 0.3s ease forwards; }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+  .attr-row { font-size: 0.8rem; color: #94a3b8; padding: 6px 14px 6px 50px; margin: 2px 0; background: rgba(15,23,42,0.3); border-radius: 6px; border-left: 3px solid #3b82f6; cursor: default; }
+  .attr-row:hover { background: rgba(59,130,246,0.1); }
   #progress { position: fixed; bottom: 0; left: 0; right: 0; height: 4px; background: #334155; }
   #progress-bar { height: 100%; background: #38bdf8; width: 0%; transition: width 0.3s ease; }
   #click-hint { position: fixed; top: 20px; right: 20px; background: rgba(15,23,42,0.9); border: 1px solid #334155; border-radius: 10px; padding: 14px 18px; font-size: 0.9rem; color: #cbd5e1; z-index: 50; pointer-events: none; backdrop-filter: blur(8px); }
   #click-hint.show { animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.6} }
-  .node.added { animation: slideIn 0.4s ease forwards; }
-  @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
 </style>
 </head>
 <body>
@@ -52,7 +51,7 @@
 <div id="container">
   <div id="sidebar">
     <h2>CRS OECD XSD v3.0</h2>
-    <p>Bu animasyonda XSD şemasındaki elementler tek tek eklenir. Her elementi açmak için üzerine tıklayın.</p>
+    <p>Baştan sadece <b>CRS_OECD</b> kök elementi görünür. Her elementi tek tek açmak için üzerine tıklayın.</p>
     <p><span class="badge badge-mandatory">ZORUNLU</span> = minOccurs 1 (varsayılan)</p>
     <p><span class="badge badge-optional">İSTEĞE BAĞLI</span> = minOccurs 0</p>
     <p><span class="badge badge-attr">ÖZELLİK</span> = xsd:attribute</p>
@@ -192,9 +191,7 @@ const XSD_TREE = {
     }
   ]
 };
-
 let expandedNodes = new Set();
-let addedCount = 0;
 
 const treeEl = document.getElementById('tree');
 const statAdded = document.getElementById('stat-added');
@@ -218,23 +215,21 @@ function countTotalElements(node, count = 0) {
 
 const totalElements = countTotalElements(XSD_TREE);
 
-function renderNode(node, depth = 0, container) {
-  const div = document.createElement('div');
-  div.className = 'node' + (depth === 0 ? ' root-node' : '');
-  div.id = 'node-' + node.name.replace(/\s/g, '_') + '-' + Math.random().toString(36).slice(2, 7);
-
+function renderNode(node, container) {
   const hasChildren = node.children && node.children.length > 0;
-  const isExpanded = expandedNodes.has(div.id);
+  const isLeaf = !hasChildren;
 
-  if (hasChildren) {
-    div.classList.add(isExpanded ? 'expanded' : 'collapsed');
-  } else {
-    div.classList.add('leaf');
-  }
+  const details = document.createElement('details');
+  details.className = isLeaf ? 'leaf-node' : 'parent-node';
+  if (container === treeEl) details.classList.add('root-details');
+
+  const summary = document.createElement('summary');
+  summary.className = isLeaf ? 'leaf-summary' : 'parent-summary';
+  if (container === treeEl) summary.classList.add('root-node');
 
   let html = '';
   if (hasChildren) {
-    html += '<div class="toggle">' + (isExpanded ? '▼' : '▶') + '</div>';
+    html += '<div class="toggle">▶</div>';
   } else {
     html += '<div class="toggle">·</div>';
   }
@@ -246,99 +241,51 @@ function renderNode(node, depth = 0, container) {
   html += '<span class="elem-name">' + node.name + '</span>';
   html += '<span class="elem-type">' + node.type + '</span>';
 
-  div.innerHTML = html;
+  summary.innerHTML = html;
+  details.appendChild(summary);
 
+  // Attributes (shown immediately, non-collapsible)
   if (node.attributes && node.attributes.length > 0) {
     const attrDiv = document.createElement('div');
-    attrDiv.className = 'attr-list';
+    attrDiv.className = 'children';
+    attrDiv.style.borderLeftColor = '#3b82f6';
+    attrDiv.style.marginTop = '4px';
     for (const attr of node.attributes) {
       const attrRow = document.createElement('div');
       attrRow.className = 'attr-row';
       attrRow.innerHTML = '<span class="badge badge-attr">ATTR</span><span class="count-badge">' + attr.usage + '</span><span class="elem-name">@' + attr.name + '</span><span class="elem-type">' + attr.type + '</span>';
       attrDiv.appendChild(attrRow);
     }
-    div.appendChild(attrDiv);
+    details.appendChild(attrDiv);
   }
 
-  if (hasChildren && isExpanded) {
+  // Element children (collapsible via details/summary)
+  if (hasChildren) {
     const childrenDiv = document.createElement('div');
     childrenDiv.className = 'children';
     for (const child of node.children) {
-      renderNode(child, depth + 1, childrenDiv);
+      renderNode(child, childrenDiv);
     }
-    div.appendChild(childrenDiv);
+    details.appendChild(childrenDiv);
   }
 
-  // Tüm elementlere click handler ekle: olayın parent'a sıçmasını engelle
-  div.addEventListener('click', function(e) {
-    e.stopImmediatePropagation();
-    // Sadece parent (children olan) elementler açılabilir/kapanabilir
-    if (hasChildren) {
-      if (expandedNodes.has(div.id)) {
-        expandedNodes.delete(div.id);
-        div.classList.remove('expanded');
-        div.classList.add('collapsed');
-        const children = div.querySelector('.element-children');
-        if (children) children.style.display = 'none';
-        const toggle = div.querySelector('.toggle');
-        if (toggle) toggle.textContent = '▶';
-      } else {
-        expandedNodes.add(div.id);
-        div.classList.remove('collapsed');
-        div.classList.add('expanded');
-        div.classList.add('added');
-        const existingChildren = div.querySelector('.element-children');
-        if (existingChildren) {
-          existingChildren.style.display = 'block';
-        } else {
-          const childrenDiv = document.createElement('div');
-          childrenDiv.className = 'element-children';
-          for (const child of node.children) {
-            renderNode(child, depth + 1, childrenDiv);
-          }
-          div.appendChild(childrenDiv);
-        }
-        const toggle = div.querySelector('.toggle');
-        if (toggle) toggle.textContent = '▼';
-        updateStats();
-      }
-    }
-  });
-
-  container.appendChild(div);
+  container.appendChild(details);
 }
 
 function renderTree() {
   treeEl.innerHTML = '';
   expandedNodes.clear();
-  addedCount = 0;
-  renderNode(XSD_TREE, 0, treeEl);
+  renderNode(XSD_TREE, treeEl);
   updateStats();
 }
 
 function updateStats() {
-  let mandatory = 0, optional = 0, attributes = 0;
-  function countStats(node) {
-    if (node.mandatory) mandatory++; else optional++;
-    if (node.attributes) attributes += node.attributes.length;
-    if (node.children) {
-      for (const child of node.children) {
-        // Only count if its parent is expanded
-      }
-    }
-  }
-  // Count visible nodes
-  const visibleNodes = treeEl.querySelectorAll('.node');
+  const visibleNodes = treeEl.querySelectorAll('summary');
   let visMand = 0, visOpt = 0, visAttr = 0;
   visibleNodes.forEach(n => {
-    const isMand = n.querySelector('.badge-mandatory');
-    const isOpt = n.querySelector('.badge-optional');
-    const isAttr = n.querySelector('.badge-attr');
-    if (isMand) visMand++;
-    if (isOpt) visOpt++;
-    if (isAttr) visAttr++;
+    if (n.querySelector('.badge-mandatory')) visMand++;
+    if (n.querySelector('.badge-optional')) visOpt++;
   });
-  // Also count attribute rows separately
   const attrRows = treeEl.querySelectorAll('.attr-row');
   visAttr = attrRows.length;
 
@@ -352,8 +299,6 @@ function updateStats() {
 }
 
 renderTree();
-
 </script>
 </body>
 </html>
-
