@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRS OECD XML Animation</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f172a; color: #e2e8f0; font-family: system-ui, sans-serif; overflow: hidden; height: 100vh; display: flex; align-items: center; justify-content: center; }
+  #container { width: 90vw; max-width: 720px; height: 90vh; max-height: 1280px; background: #1e293b; border-radius: 16px; padding: 32px 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); position: relative; overflow: hidden; }
+  #title { text-align: center; font-size: 1.5rem; font-weight: 700; margin-bottom: 16px; color: #38bdf8; opacity: 0; animation: fadeIn 1s forwards 0.2s; }
+  #code { width: 100%; height: calc(100% - 140px); background: #0f172a; border-radius: 10px; padding: 20px; overflow-y: auto; font-family: 'Fira Code', Consolas, monospace; font-size: 13px; line-height: 1.5; border: 1px solid #334155; }
+  .line { display: block; position: relative; }
+  .tag { color: #fb923c; }
+  .attr { color: #a78bfa; }
+  .string { color: #34d399; }
+  .comment { color: #64748b; font-style: italic; }
+  .text { color: #cbd5e1; }
+  .ns { color: #94a3b8; }
+  .highlight { background: rgba(59,130,246,0.15); border-left: 4px solid #3b82f6; padding-left: 8px; transition: all 0.4s ease; }
+  .fade-out { opacity: 0.3; transition: opacity 0.4s ease; }
+  #callout { position: absolute; bottom: 24px; left: 24px; right: 24px; background: rgba(30,41,59,0.95); border: 1px solid #3b82f6; border-radius: 10px; padding: 16px 20px; font-size: 1rem; color: #e2e8f0; opacity: 0; transform: translateY(20px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3); }
+  #callout h3 { color: #38bdf8; margin-bottom: 6px; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  #callout p { font-size: 0.95rem; line-height: 1.4; }
+  #scene-label { position: absolute; top: 24px; left: 24px; font-size: 0.85rem; color: #94a3b8; opacity: 0; animation: fadeIn 0.8s forwards; }
+  @keyframes fadeIn { to { opacity: 1; } }
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="scene-label">Scene 1: Introduction</div>
+  <div id="title">CRS OECD v3.0 XML</div>
+  <div id="code"></div>
+  <div id="callout"><h3>Global Standard</h3><p>CRS enables automatic exchange of financial account information between tax authorities worldwide.</p></div>
+</div>
+<script>
+const xmlLines = [
+  {cls:'comment',text:'&lt;?xml version="1.0" encoding="UTF-8"?&gt;'},
+  {cls:'ns',text:'&lt;crs:CRS_OECD xmlns:crs="urn:oecd:ties:crs:v3"'},
+  {cls:'ns',text:'              xmlns:cfc="urn:oecd:ties:commontypesfatcacrs:v2"'},
+  {cls:'ns',text:'              xmlns:stf="urn:oecd:ties:crsstf:v5"'},
+  {cls:'ns',text:'              xmlns:xsi="http://w3.org"'},
+  {cls:'attr',text:'              version="3.0"&gt;'},
+  {cls:'tag',text:'  &lt;crs:MessageSpec&gt;'},
+  {cls:'tag',text:'    &lt;crs:SendingCompanyIN&gt;1234567890&lt;/crs:SendingCompanyIN&gt;'},
+  {cls:'tag',text:'    &lt;crs:TransmittingCountry&gt;TR&lt;/crs:TransmittingCountry&gt;'},
+  {cls:'tag',text:'    &lt;crs:ReceivingCountry&gt;TR&lt;/crs:ReceivingCountry&gt;'},
+  {cls:'tag',text:'    &lt;crs:MessageType&gt;CRS&lt;/crs:MessageType&gt;'},
+  {cls:'tag',text:'    &lt;crs:Warning&gt;CRS v3.0 Tam Kapsamli Yeni Bildirim Ornegi&lt;/crs:Warning&gt;'},
+  {cls:'tag',text:'    &lt;crs:Contact&gt;CRS Uyum Birimi - crs@ornekbank.com.tr&lt;/crs:Contact&gt;'},
+  {cls:'comment',text:'    &lt;!-- v3.0 ZORUNLU FORMAT --&gt;'},
+  {cls:'tag',text:'    &lt;crs:MessageRefId&gt;TR2026TR-FI1234567890-0001&lt;/crs:MessageRefId&gt;'},
+  {cls:'comment',text:'    &lt;!-- v3.0: Schema seviyesinde Validation --&gt;'},
+  {cls:'tag',text:'    &lt;crs:MessageTypeIndic&gt;CRS701&lt;/crs:MessageTypeIndic&gt;'},
+  {cls:'tag',text:'    &lt;crs:ReportingPeriod&gt;2026-12-31&lt;/crs:ReportingPeriod&gt;'},
+  {cls:'tag',text:'    &lt;crs:Timestamp&gt;2027-05-15T10:30:00&lt;/crs:Timestamp&gt;'},
+  {cls:'tag',text:'  &lt;/crs:MessageSpec&gt;'},
+  {cls:'blank',text:''},
+  {cls:'tag',text:'  &lt;crs:CrsBody&gt;'},
+  {cls:'tag',text:'    &lt;crs:ReportingFI&gt;'},
+  {cls:'tag',text:'      &lt;crs:ResCountryCode&gt;TR&lt;/crs:ResCountryCode&gt;'},
+  {cls:'tag',text:'      &lt;crs:IN issuedBy="TR" INType="TIN"&gt;1234567890&lt;/crs:IN&gt;'},
+  {cls:'tag',text:'      &lt;crs:Name nameType="OECD207"&gt;Ornek Bankasi A.S.&lt;/crs:Name&gt;'},
+  {cls:'tag',text:'      &lt;crs:Address legalAddressType="OECD303"&gt;'},
+  {cls:'tag',text:'        &lt;cfc:CountryCode&gt;TR&lt;/cfc:CountryCode&gt;'},
+  {cls:'tag',text:'        &lt;cfc:City&gt;Istanbul&lt;/cfc:City&gt;'},
+  {cls:'tag',text:'      &lt;/crs:Address&gt;'},
+  {cls:'tag',text:'      &lt;crs:DocSpec&gt;'},
+  {cls:'tag',text:'        &lt;stf:DocTypeIndic&gt;OECD1&lt;/stf:DocTypeIndic&gt;'},
+  {cls:'tag',text:'        &lt;stf:DocRefId&gt;TR2026-FI1234567890-RFI001&lt;/stf:DocRefId&gt;'},
+  {cls:'tag',text:'      &lt;/crs:DocSpec&gt;'},
+  {cls:'tag',text:'    &lt;/crs:ReportingFI&gt;'},
+  {cls:'blank',text:''},
+  {cls:'tag',text:'    &lt;crs:ReportingGroup&gt;'},
+  {cls:'comment',text:'      &lt;!-- SENARYO 1: Individual + Joint Account --&gt;'},
+  {cls:'tag',text:'      &lt;crs:AccountReport&gt;'},
+  {cls:'tag',text:'        &lt;crs:DocSpec&gt;&lt;stf:DocTypeIndic&gt;OECD1&lt;/stf:DocTypeIndic&gt;&lt;/crs:DocSpec&gt;'},
+  {cls:'tag',text:'        &lt;crs:AccountNumber AcctNumberType="OECD601"&gt;TR3300061005...&lt;/crs:AccountNumber&gt;'},
+  {cls:'tag',text:'        &lt;crs:AccountHolder&gt;&lt;crs:SelfCert&gt;CRS901&lt;/crs:SelfCert&gt;'},
+  {cls:'tag',text:'          &lt;crs:Individual&gt;&lt;crs:ResCountryCode&gt;DE&lt;/crs:ResCountryCode&gt;'},
+  {cls:'tag',text:'            &lt;crs:Name&gt;&lt;crs:FirstName&gt;Hans&lt;/crs:FirstName&gt;&lt;crs:LastName&gt;Mueller&lt;/crs:LastName&gt;&lt;/crs:Name&gt;'},
+  {cls:'tag',text:'            &lt;crs:Address legalAddressType="OECD302"&gt;&lt;cfc:City&gt;Berlin&lt;/cfc:City&gt;&lt;/crs:Address&gt;'},
+  {cls:'tag',text:'          &lt;/crs:Individual&gt;&lt;/crs:AccountHolder&gt;'},
+  {cls:'tag',text:'        &lt;crs:AccountBalance currCode="EUR"&gt;15420.50&lt;/crs:AccountBalance&gt;'},
+  {cls:'tag',text:'        &lt;crs:DDProcedure&gt;CRS1201&lt;/crs:DDProcedure&gt;'},
+  {cls:'tag',text:'        &lt;crs:AccountType&gt;CRS1101&lt;/crs:AccountType&gt;'},
+  {cls:'tag',text:'        &lt;crs:JointAccount&gt;&lt;crs:Number&gt;2&lt;/crs:Number&gt;&lt;/crs:JointAccount&gt;'},
+  {cls:'tag',text:'      &lt;/crs:AccountReport&gt;'},
+  {cls:'blank',text:''},
+  {cls:'comment',text:'      &lt;!-- SENARYO 2: Organisation + Controlling Person --&gt;'},
+  {cls:'tag',text:'      &lt;crs:AccountReport&gt;'},
+  {cls:'tag',text:'        &lt;crs:AccountNumber AcctNumberType="OECD603"&gt;US0378331005&lt;/crs:AccountNumber&gt;'},
+  {cls:'tag',text:'        &lt;crs:AccountHolder&gt;&lt;crs:Organisation&gt;&lt;crs:Name&gt;Anadolu Global Yatirim&lt;/crs:Name&gt;&lt;/crs:Organisation&gt;&lt;/crs:AccountHolder&gt;'},
+  {cls:'tag',text:'        &lt;crs:ControllingPerson&gt;&lt;crs:Individual&gt;&lt;crs:Name&gt;&lt;crs:FirstName&gt;Sophie&lt;/crs:FirstName&gt;&lt;crs:LastName&gt;Van Dijk&lt;/crs:LastName&gt;&lt;/crs:Name&gt;&lt;/crs:Individual&gt;'},
+  {cls:'tag',text:'          &lt;crs:CtrlgPersonType&gt;CRS801&lt;/crs:CtrlgPersonType&gt;&lt;crs:SelfCert&gt;CRS1001&lt;/crs:SelfCert&gt;&lt;/crs:ControllingPerson&gt;'},
+  {cls:'tag',text:'        &lt;crs:AccountBalance currCode="USD"&gt;250000.00&lt;/crs:AccountBalance&gt;'},
+  {cls:'tag',text:'      &lt;/crs:AccountReport&gt;'},
+  {cls:'blank',text:''},
+  {cls:'comment',text:'      &lt;!-- SENARYO 3: Electronic Money Product --&gt;'},
+  {cls:'tag',text:'      &lt;crs:AccountReport&gt;'},
+  {cls:'tag',text:'        &lt;crs:AccountNumber AcctNumberType="OECD606"&gt;EPARA-9000123456&lt;/crs:AccountNumber&gt;'},
+  {cls:'tag',text:'        &lt;crs:AccountBalance currCode="GBP"&gt;8500.00&lt;/crs:AccountBalance&gt;'},
+  {cls:'tag',text:'      &lt;/crs:AccountReport&gt;'},
+  {cls:'tag',text:'    &lt;/crs:ReportingGroup&gt;'},
+  {cls:'tag',text:'  &lt;/crs:CrsBody&gt;'},
+  {cls:'tag',text:'&lt;/crs:CRS_OECD&gt;'}
+];
+
+const scenes = [
+  {start:0,end:20,label:'Scene 1: Message Header',title:'CRS OECD v3.0 XML',calloutTitle:'Message Header',calloutText:'Sender info, countries (TR), message type, unique reference ID, and timestamp.'},
+  {start:21,end:32,label:'Scene 2: Reporting FI',title:'Reporting Financial Institution',calloutTitle:'ReportingFI',calloutText:'The bank sending the report: Ornek Bankasi A.S., Istanbul, Turkey.'},
+  {start:33,end:50,label:'Scene 3: Account Reports',title:'Three Account Scenarios',calloutTitle:'ReportingGroup',calloutText:'Three accounts: Individual (DE), Organisation + Controlling Person (NL/TR), Electronic Money (GB).'},
+  {start:51,end:xmlLines.length,label:'Scene 4: v3.0 Fields',title:'New in Version 3.0',calloutTitle:'Mandatory v3.0 Fields',calloutText:'SelfCert, DDProcedure, AccountType, JointAccount count — richer compliance data.'}
+];
+
+const codeEl=document.getElementById('code');
+const sceneLabel=document.getElementById('scene-label');
+const titleEl=document.getElementById('title');
+const callout=document.getElementById('callout');
+
+function render(from,to){
+  codeEl.innerHTML='';
+  for(let i=from;i<to;i++){
+    const l=xmlLines[i];
+    const div=document.createElement('div');
+    div.className='line '+(l.cls||'text');
+    div.innerHTML=l.cls==='blank'?'':l.text;
+    codeEl.appendChild(div);
+  }
+  codeEl.scrollTop=0;
+}
+
+function highlight(from,to){
+  const lines=codeEl.querySelectorAll('.line');
+  lines.forEach((l,i)=>{
+    const abs=from+i;
+    if(abs>=from&&abs<to){l.classList.add('highlight');l.classList.remove('fade-out');}
+    else{l.classList.remove('highlight');l.classList.add('fade-out');}
+  });
+}
+
+let cur=0;
+function goScene(idx){
+  if(idx>=scenes.length)idx=scenes.length-1;
+  const s=scenes[idx];cur=idx;
+  sceneLabel.textContent=s.label;
+  titleEl.textContent=s.title;
+  callout.innerHTML='<h3>'+s.calloutTitle+'</h3><p>'+s.calloutText+'</p>';
+  [sceneLabel,titleEl,callout].forEach(el=>{
+    el.style.opacity='0';el.offsetHeight;el.style.opacity='1';
+  });
+  render(s.start,s.end);highlight(s.start,s.end);
+}
+
+goScene(0);
+const interval=setInterval(()=>{
+  cur++;
+  if(cur>=scenes.length){clearInterval(interval);callout.classList.add('pulse');return;}
+  goScene(cur);
+},7000);
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){clearInterval(interval);cur++;goScene(cur);}
+});
+</script>
+<style>
+  .pulse{animation:pulse 1.5s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+</style>
+</body>
+</html>
