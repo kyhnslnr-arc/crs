@@ -3,530 +3,522 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRS OECD XML Schema v3.0 - Diagrams (Pages 43-55)</title>
+<title>CRS OECD v3.0 - Sadece Kullanılan Elementler</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #ffffff; color: #000000; font-family: 'Times New Roman', serif; font-size: 11pt; line-height: 1.5; height: 100vh; overflow: hidden; }
-  #container { width: 595px; margin: 0 auto; padding: 20px; }
-  h1, h2, h3 { color: #000000; page-break-after: avoid; }
-  h1 { font-size: 16pt; border-bottom: 1px solid #000000; padding-bottom: 4px; margin-bottom: 12px; }
-  h2 { font-size: 14pt; margin-bottom: 8px; border-bottom: 1px solid #cccccc; padding-bottom: 3px; }
-  h3 { font-size: 12pt; margin-bottom: 6px; }
-  .diagram { border: 1px solid #000000; border-radius: 4px; padding: 10px; margin-bottom: 20px; min-height: 400px; position: relative; }
-  .diagram h3 { position: absolute; top: 10px; left: 10px; right: 100px; }
-  .diagram .description { position: absolute; bottom: 10px; left: 10px; right: 100px; font-size: 9pt; line-height: 1.3; }
-  .diagram .notes { position: absolute; top: 10px; right: 10px; font-size: 9pt; text-align: right; }
-  .entity { margin: 8px 0; padding: 4px 8px; background: #f0f0f0; border: 1px dashed #666666; }
-  .entity .name { font-weight: bold; color: #000000; display: block; margin-bottom: 4px; }
-  .entity .type { color: #333333; font-size: 9pt; }
-  .attr { margin: 2px 0; }
-  .attr .name { font-weight: bold; color: #000000; }
-  .attr .value { color: #666666; }
-  .relationship { line-height: 1.4; margin: 6px 0; }
-  .page-break { page-break-before: always; }
-  .footer { font-size: 8pt; text-align: center; color: #666666; margin-top: 20px; }
+  body { background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', system-ui, sans-serif; height: 100vh; overflow-y: auto; }
+  #container { max-width: 1200px; margin: 20px auto; padding: 20px; }
+  h1 { color: #38bdf8; text-align: center; margin-bottom: 30px; font-size: 1.5rem; }
+  .xml-display { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 30px; margin-bottom: 40px; min-height: 500px; }
+  .xml-display pre { font-family: 'Fira Code', 'Consolas', monospace; font-size: 12px; line-height: 1.6; color: #cbd5e1; overflow-x: auto; }
+  .xml-display .tag { color: #fb923c; }
+  .xml-display .attr { color: #a78bfa; }
+  .xml-display .string { color: #34d399; }
+  .xml-display .comment { color: #64748b; font-style: italic; }
+  .xml-display .mandatory { color: #16a34a; font-weight: bold; }
+  .xml-display .optional { color: #ea580c; }
+  .controls { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+  .btn { padding: 8px 16px; background: #3b82f6; color: #fff; border: none; border-radius: 6px; font-size: 0.85rem; cursor: pointer; transition: background 0.2s; }
+  .btn:hover { background: #2563eb; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .hierarchy { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 40px; }
+  .hierarchy .node { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 15px 20px; min-width: 220px; }
+  .hierarchy .node .name { font-weight: 600; color: #f8fafc; margin-bottom: 8px; }
+  .hierarchy .node .type { color: #a78bfa; font-size: 0.85rem; }
+  .hierarchy .node .desc { color: #94a3b8; font-size: 0.8rem; line-height: 1.4; }
+  .stat { text-align: center; margin: 10px 0; }
+  .stat .number { font-size: 2rem; font-weight: bold; color: #38bdf8; }
+  .stat .label { color: #94a3b8; font-size: 0.85rem; }
+  .step-badge { padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; background: #334155; color: #94a3b8; margin: 2px; }
+  .step-badge.active { background: #3b82f6; color: #fff; }
+  .step-badge.completed { background: #16a34a; color: #fff; }
 </style>
 </head>
 <body>
 <div id="container">
-  <h1>Amended Common Reporting Standard (CRS)</h1>
-  <h2>XML Schema v3.0 Diagrams</h2>
-  <p><em>User Guide for Tax Administrations</em></p>
-  <p><strong>Schema Version:</strong> 3.0</p>
-  <p class="footer">Source: OECD Common Reporting Standard documentation</p>
-
-  <!-- Diagram 1: Overall CRS_OECD Structure -->
-  <div class="diagram" id="diag1">
-    <h3>Overall CRS_OECD Structure</h3>
-    <div class="description">
-      <strong>Root element:</strong> CRS_OECD with version attribute<br>
-      <strong>Contains:</strong> MessageSpec and CrsBody elements<br>
-      <strong>Description:</strong> The top-level element that wraps the entire CRS message structure
-    </div>
-    <div class="entity">
-      <div class="name">CRS_OECD</div>
-      <div class="type">xsd:element</div>
-    </div>
-    <div class="relationship">
-      <strong>Attribute:</strong> version (optional, string, 1-10 chars)
-    </div>
+  <h1>CRS OECD v3.0 - Sadece Kullanılan Elementler</h1>
+  <div class="controls">
+    <span class="step-badge active" id="step1">1. Initial</span>
+    <span class="step-badge" id="step2">2. Düzeltme 1</span>
+    <span class="step-badge" id="step3">3. Düzeltme 2</span>
   </div>
 
-  <div class="page-break"></div>
-
-  <!-- Diagram 2: MessageSpec -->
-  <div class="diagram" id="diag2">
-    <h3>MessageSpec Element</h3>
-    <div class="description">
-      <strong>Location:</strong> First child of CRS_OECD<br>
-      <strong>Purpose:</strong> Identifies the Tax Administration sending the message<br>
-      <strong>Contains:</strong> SendingCompanyIN, TransmittingCountry, ReceivingCountry, MessageType, Warning, Contact, MessageRefId, MessageTypeIndic, CorrMessageRefId, ReportingPeriod, Timestamp
-    </div>
-    <div class="entity">
-      <div class="name">MessageSpec</div>
-      <div class="type">MessageSpec_Type</div>
-    </div>
-    <div class="relationship">
-      <strong>Mandatory elements:</strong> MessageType, MessageRefId, MessageTypeIndic, ReportingPeriod, Timestamp<br>
-      <strong>Optional elements:</strong> SendingCompanyIN, Warning, Contact, CorrMessageRefId
-    </div>
+  <div class="xml-display" id="xml-display">
+    <pre><?xml version="1.0" encoding="UTF-8"?>
+<crs:CRS_OECD xmlns:crs="urn:oecd:ties:crs:v3"
+              xmlns:cfc="urn:oecd:ties:commontypesfatcacrs:v2"
+              xmlns:stf="urn:oecd:ties:crsstf:v5"
+              xmlns:iso="urn:oecd:ties:isocrstypes:v1"
+              xmlns:xsi="http://w3.org"
+              version="3.0">
+  <crs:MessageSpec>
+    <crs:SendingCompanyIN>1234567890</crs:SendingCompanyIN>
+    <crs:TransmittingCountry>TR</crs:TransmittingCountry>
+    <crs:ReceivingCountry>TR</crs:ReceivingCountry>
+    <crs:MessageType>CRS</crs:MessageType>
+    <!-- v3.0 ZORUNLU FORMAT: GonderenUlke + Yil + AliciUlke + BenzersizID -->
+    <crs:MessageRefId>TR2026TR-FI1234567890-0001</crs:MessageRefId>
+    <!-- v3.0: Schema seviyesinde Validation (zorunlu) -->
+    <crs:MessageTypeIndic>CRS701</crs:MessageTypeIndic>
+    <crs:ReportingPeriod>2026-12-31</crs:ReportingPeriod>
+    <crs:Timestamp>2027-05-15T10:30:00</crs:Timestamp>
+  </crs:MessageSpec>
+  <crs:CrsBody>
+    <crs:ReportingFI>
+      <crs:ResCountryCode>TR</crs:ResCountryCode>
+      <crs:IN issuedBy="TR" INType="TIN">1234567890</crs:IN>
+      <crs:Name nameType="OECD207">Ornek Katilim ve Mevduat Bankasi A.S.</crs:Name>
+      <crs:Address legalAddressType="OECD303">
+        <cfc:CountryCode>TR</cfc:CountryCode>
+        <cfc:AddressFix>
+          <cfc:Street>Buyukdere Caddesi</cfc:Street>
+          <cfc:BuildingIdentifier>No: 100</cfc:BuildingIdentifier>
+          <cfc:DistrictName>Levent</cfc:DistrictName>
+          <cfc:PostCode>34330</cfc:PostCode>
+          <cfc:City>Istanbul</cfc:City>
+        </cfc:AddressFix>
+      </crs:Address>
+      <crs:DocSpec>
+        <stf:DocTypeIndic>OECD1</stf:DocTypeIndic>
+        <!-- v3.0 ZORUNLU FORMAT: Her durumda gonderen ulke kodu ile baslamali -->
+        <stf:DocRefId>TR2026-FI1234567890-RFI001</stf:DocRefId>
+      </crs:DocSpec>
+    </crs:ReportingFI>
+    <crs:ReportingGroup>
+      <!-- SENARYO 1: Gercek Kisi + Ortak Hesap + Yeni Hesap + Mevduat Hesabi -->
+      <crs:AccountReport>
+        <crs:DocSpec>
+          <stf:DocTypeIndic>OECD1</stf:DocTypeIndic>
+          <stf:DocRefId>TR2026-FI1234567890-AR0001</stf:DocRefId>
+        </crs:DocSpec>
+        <crs:AccountNumber AcctNumberType="OECD601" UndocumentedAccount="false" ClosedAccount="false" DormantAccount="false">TR330006100519786457841326</crs:AccountNumber>
+        <crs:AccountHolder>
+          <crs:SelfCert>CRS901</crs:SelfCert>
+          <crs:Individual>
+            <crs:ResCountryCode>DE</crs:ResCountryCode>
+            <crs:Name nameType="OECD202">
+              <crs:FirstName>Hans</crs:FirstName>
+              <crs:LastName>Mueller</crs:LastName>
+            </crs:Name>
+            <crs:Address legalAddressType="OECD302">
+              <cfc:CountryCode>DE</cfc:CountryCode>
+              <cfc:AddressFix>
+                <cfc:Street>Berliner Strasse</cfc:Street>
+                <cfc:BuildingIdentifier>42</cfc:BuildingIdentifier>
+                <cfc:PostCode>10115</cfc:PostCode>
+                <cfc:City>Berlin</cfc:City>
+              </cfc:AddressFix>
+            </crs:Address>
+            <crs:BirthInfo>
+              <crs:BirthDate>1980-04-12</crs:BirthDate>
+              <crs:City>Munich</crs:City>
+              <cfc:CountryInfo>
+                <crs:CountryCode>DE</crs:CountryCode>
+              </cfc:CountryInfo>
+            </crs:BirthInfo>
+          </crs:Individual>
+        </crs:AccountHolder>
+        <crs:AccountBalance currCode="EUR">15420.50</crs:AccountBalance>
+        <crs:Payment>
+          <crs:Type>CRS502</crs:Type>
+          <crs:PaymentAmnt currCode="EUR">310.25</crs:PaymentAmnt>
+        </crs:Payment>
+        <crs:DDProcedure>CRS1201</crs:DDProcedure>
+        <crs:AccountType>CRS1101</crs:AccountType>
+        <crs:JointAccount>
+          <crs:Number>2</crs:Number>
+        </crs:JointAccount>
+      </crs:AccountReport>
+      <!-- SENARYO 2: Pasif NFE Kurum + Coklu Kontrol Eden Kisi Rolu + Kontrol Eden Kisi SelfCert -->
+      <crs:AccountReport>
+        <crs:DocSpec>
+          <stf:DocTypeIndic>OECD1</stf:DocTypeIndic>
+          <stf:DocRefId>TR2026-FI1234567890-AR0002</stf:DocRefId>
+        </crs:DocSpec>
+        <crs:AccountNumber AcctNumberType="OECD603" ClosedAccount="false">US0378331005</crs:AccountNumber>
+        <crs:AccountHolder>
+          <crs:SelfCert>CRS901</crs:SelfCert>
+          <crs:Organisation>
+            <crs:ResCountryCode>TR</crs:ResCountryCode>
+            <crs:IN issuedBy="TR" INType="TIN">9876543210</crs:IN>
+            <crs:Name nameType="OECD207">Anadolu Global Yatirim Ltd. Sti.</crs:Name>
+            <crs:Address legalAddressType="OECD303">
+              <cfc:CountryCode>TR</cfc:CountryCode>
+              <cfc:AddressFix>
+                <cfc:City>Ankara</cfc:City>
+              </cfc:AddressFix>
+            </crs:Address>
+          </crs:Organisation>
+          <crs:AcctHolderType>CRS101</crs:AcctHolderType>
+        </crs:AccountHolder>
+        <crs:ControllingPerson>
+          <crs:Individual>
+            <crs:ResCountryCode>NL</crs:ResCountryCode>
+            <crs:TIN issuedBy="NL">998877665</crs:TIN>
+            <crs:Name nameType="OECD202">
+              <crs:FirstName>Sophie</crs:FirstName>
+              <crs:LastName>Van Dijk</crs:LastName>
+            </crs:Name>
+            <crs:Address legalAddressType="OECD302">
+              <cfc:CountryCode>NL</cfc:CountryCode>
+              <cfc:AddressFix>
+                <cfc:City>Amsterdam</cfc:City>
+              </cfc:AddressFix>
+            </crs:Address>
+          </crs:Individual>
+          <crs:CtrlgPersonType>CRS801</crs:CtrlgPersonType>
+          <crs:CtrlgPersonType>CRS803</crs:CtrlgPersonType>
+          <crs:SelfCert>CRS1001</crs:SelfCert>
+        </crs:ControllingPerson>
+        <crs:AccountBalance currCode="USD">250000.00</crs:AccountBalance>
+        <crs:DDProcedure>CRS1202</crs:DDProcedure>
+        <crs:AccountType>CRS1102</crs:AccountType>
+      </crs:AccountReport>
+      <!-- SENARYO 3: Elektronik Para Urunu (OECD606) ve Trust EquityInterestType (CRS404) -->
+      <crs:AccountReport>
+        <crs:DocSpec>
+          <stf:DocTypeIndic>OECD1</stf:DocTypeIndic>
+          <stf:DocRefId>TR2026-FI1234567890-AR0003</stf:DocRefId>
+        </crs:DocSpec>
+        <!-- v3.0 YENI KOD: OECD606 = Belirli Elektronik Para Urunu -->
+        <crs:AccountNumber AcctNumberType="OECD606">EPARA-9000123456</crs:AccountNumber>
+        <crs:AccountHolder>
+          <!-- v3.0 YENI ALAN: Trust / hukuki duzenleme ozkaynak payi rolu (CRS404 = Beneficiary) -->
+          <crs:EquityInterestType>CRS404</crs:EquityInterestType>
+          <crs:SelfCert>CRS902</crs:SelfCert>
+          <crs:Individual>
+            <crs:ResCountryCode>GB</crs:ResCountryCode>
+            <crs:TIN issuedBy="GB">AB123456C</crs:TIN>
+            <crs:Name nameType="OECD202">
+              <crs:FirstName>Oliver</crs:FirstName>
+              <crs:LastName>Smith</crs:LastName>
+            </crs:Name>
+            <crs:Address legalAddressType="OECD302">
+              <cfc:CountryCode>GB</cfc:CountryCode>
+              <cfc:AddressFix>
+                <cfc:City>London</cfc:City>
+              </cfc:AddressFix>
+            </crs:Address>
+          </crs:Individual>
+        </crs:AccountHolder>
+        <crs:AccountBalance currCode="GBP">8500.00</crs:AccountBalance>
+        <crs:DDProcedure>CRS1201</crs:DDProcedure>
+        <crs:AccountType>CRS1104</crs:AccountType>
+      </crs:AccountReport>
+    </crs:ReportingGroup>
+  </crs:CrsBody>
+</crs:CRS_OECD></pre>
   </div>
 
-  <div class="page-break"></div>
+  <div id="hierarchy" class="hierarchy"></div>
 
-  <!-- Diagram 3: CrsBody -->
-  <div class="diagram" id="diag3">
-    <h3>CrsBody Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Second child of CRS_OECD (0..unbounded)<br>
-      <strong>Purpose:</strong> Contains reporting financial institution and account reports<br>
-      <strong>Contains:</strong> ReportingFI, ReportingGroup (0..unbounded)
-    </div>
-    <div class="entity">
-      <div class="name">CrsBody</div>
-      <div class="type">CrsBody_Type</div>
-    </div>
-    <div class="relationship">
-      <strong>ReportingFI:</strong> CorrectableOrganisationParty_Type (1..1)<br>
-      <strong>ReportingGroup:</strong> xsd:complexType (inline), 0..unbounded
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 4: ReportingFI -->
-  <div class="diagram" id="diag4">
-    <h3>Reporting Financial Institution (ReportingFI)</h3>
-    <div class="description">
-      <strong>Location:</strong> First element of CrsBody<br>
-      <strong>Purpose:</strong> Identifies the reporting financial institution<br>
-      <strong>Contains:</strong> DocSpec, ResCountryCode (0..unbounded), IN (0..unbounded), Name (1..unbounded), Address (0..unbounded)
-    </div>
-    <div class="entity">
-      <div class="name">ReportingFI</div>
-      <div class="type">CorrectableOrganisationParty_Type</div>
-    </div>
-    <div class="relationship">
-      <strong>Mandatory:</strong> DocSpec, Name<br>
-      <strong>Optional:</strong> ResCountryCode, IN, Address
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 5: ReportingGroup -->
-  <div class="diagram" id="diag5">
-    <h3>ReportingGroup Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of CrsBody (0..unbounded)<br>
-      <strong>Purpose:</strong> Groups account reports by sponsor, intermediary, or pool<br>
-      <strong>Contains:</strong> Sponsor, Intermediary (0..1 each), AccountReport (0..unbounded), PoolReport (0..unbounded)
-    </div>
-    <div class="entity">
-      <div class="name">ReportingGroup</div>
-      <div class="type">xsd:complexType (inline)</div>
-    </div>
-    <div class="relationship">
-      <strong>AccountReport:</strong> CorrectableAccountReport_Type (0..unbounded)<br>
-      <strong>PoolReport:</strong> ftc:CorrectablePoolReport_Type (0..unbounded)
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 6: CorrectableAccountReport -->
-  <div class="diagram" id="diag6">
-    <h3>CorrectableAccountReport</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of ReportingGroup/AccountReport<br>
-      <strong>Purpose:</strong> Contains individual account reporting data<br>
-      <strong>Contains:</strong> DocSpec, AccountNumber, AccountHolder, ControllingPerson (0..unbounded), AccountBalance, Payment (0..unbounded), DDProcedure, AccountType, JointAccount (0..1)
-    </div>
-    <div class="entity">
-      <div class="name">CorrectableAccountReport</div>
-      <div class="type">xsd:complexType</div>
-    </div>
-    <div class="relationship">
-      <strong>Mandatory:</strong> DocSpec, AccountNumber, AccountHolder, AccountBalance, DDProcedure, AccountType<br>
-      <strong>Optional:</strong> ControllingPerson, Payment, JointAccount
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 7: AccountHolder -->
-  <div class="diagram" id="diag7">
-    <h3>AccountHolder Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of CorrectableAccountReport<br>
-      <strong>Purpose:</strong> Identifies the account holder<br>
-      <strong>Contains:</strong> EquityInterestType (0..unbounded), SelfCert, Individual/Organisation (choice), AcctHolderType
-    </div>
-    <div class="entity">
-      <div class="name">AccountHolder</div>
-      <div class="type">AccountHolder_Type</div>
-    </div>
-    <div class="relationship">
-      <strong>Choice:</strong> Individual (PersonParty_Type) or Organisation (OrganisationParty_Type)<br>
-      <strong>Mandatory:</strong> SelfCert, AcctHolderType<br>
-      <strong>Individual contains:</strong> ResCountryCode (1..unbounded), TIN (0..unbounded), Name (1..unbounded), Address (0..unbounded), Nationality (0..unbounded), BirthInfo (0..1)<br>
-      <strong>Organisation contains:</strong> ResCountryCode (0..unbounded), IN (0..unbounded), Name (1..unbounded), Address (0..unbounded)
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 8: ControllingPerson -->
-  <div class="diagram" id="diag8">
-    <h3>ControllingPerson Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of CorrectableAccountReport (0..unbounded)<br>
-      <strong>Purpose:</strong> Identifies controlling persons for the account<br>
-      <strong>Contains:</strong> Individual, CtrlgPersonType (1..unbounded), SelfCert
-    </div>
-    <div class="entity">
-      <div class="name">ControllingPerson</div>
-      <div class="type">xsd:complexType</div>
-    </div>
-    <div class="relationship">
-      <strong>Individual:</strong> PersonParty_Type<br>
-      <strong>CtrlgPersonType:</strong> CRS801-CRS813, CRS800 (0..unbounded)<br>
-      <strong>Mandatory:</strong> SelfCert (1..1)
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 9: AccountNumber -->
-  <div class="diagram" id="diag9">
-    <h3>AccountNumber Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of CorrectableAccountReport (1..1)<br>
-      <strong>Purpose:</strong> Identifies the account number<br>
-      <strong>Contains:</strong> AcctNumberType (required attribute), UndocumentedAccount, ClosedAccount, DormantAccount (optional attributes)
-    </div>
-    <div class="entity">
-      <div class="name">AccountNumber</div>
-      <div class="type">FIAccountNumber_Type</div>
-    </div>
-    <div class="relationship">
-      <strong>Attributes:</strong> AcctNumberType (required, enumeration), UndocumentedAccount, ClosedAccount, DormantAccount (all optional boolean)
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 10: DocSpec -->
-  <div class="diagram" id="diag10">
-    <h3>DocSpec Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of ReportingFI and AccountReport (1..1)<br>
-      <strong>Purpose:</strong> Document specification identifying the report type<br>
-      <strong>Contains:</strong> DocTypeIndic (required), DocRefId (required)
-    </div>
-    <div class="entity">
-      <div class="name">DocSpec</div>
-      <div class="type">stf:DocSpec_Type</div>
-    </div>
-    <div class="relationship">
-      <strong>Mandatory:</strong> DocTypeIndic, DocRefId<br>
-      <strong>DocTypeIndic:</strong> OECD1 (initial), OECD2 (correction), OECD0 (resend)<br>
-      <strong>DocRefId:</strong> Format: country code + unique identifier
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 11: Individual (within AccountHolder) -->
-  <div class="diagram" id="diag11">
-    <h3>Individual Account Holder</h3>
-    <div class="description">
-      <strong>Location:</strong> Choice element within AccountHolder (1..1)<br>
-      <strong>Purpose:</strong> Identifies a natural person as account holder<br>
-      <strong>Contains:</strong> ResCountryCode (1..unbounded), TIN (0..unbounded), Name (1..unbounded), Address (0..unbounded), Nationality (0..unbounded), BirthInfo (0..1)
-    </div>
-    <div class="entity">
-      <div class="name">Individual</div>
-      <div class="type">PersonParty_Type</div>
-    </div>
-    <div class="relationship">
-      <strong>BirthInfo:</strong> BirthDate (0..1), City (0..1), CountryInfo (0..1)<br>
-      <strong>CountryInfo:</strong> CountryCode or FormerCountryName
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 12: Organisation (within AccountHolder) -->
-  <div class="diagram" id="diag12">
-    <h3>Organisation Account Holder</h3>
-    <div class="description">
-      <strong>Location:</strong> Choice element within AccountHolder (1..1)<br>
-      <strong>Purpose:</strong> Identifies an organisation as account holder<br>
-      <strong>Contains:</strong> ResCountryCode (0..unbounded), IN (0..unbounded), Name (1..unbounded), Address (0..unbounded)
-    </div>
-    <div class="entity">
-      <div class="name">Organisation</div>
-      <div class="type">OrganisationParty_Type</div>
-    </div>
-    <div class="relationship">
-      <strong>Mandatory:</strong> Name<br>
-      <strong>Optional:</strong> ResCountryCode, IN, Address
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 13: EquityInterestType -->
-  <div class="diagram" id="diag13">
-    <h3>EquityInterestType</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of AccountHolder (0..unbounded)<br>
-      <strong>Purpose:</strong> Identifies the type of equity interest<br>
-      <strong>Contains:</strong> CRS401-CRS410 enumeration values
-    </div>
-    <div class="entity">
-      <div class="name">EquityInterestType</div>
-      <div class="type">CRS401-CRS410 enumeration</div>
-    </div>
-    <div class="relationship">
-      <strong>Values:</strong> CRS401 (settlor), CRS402 (trustee), CRS403 (protector), CRS404 (beneficiary), CRS405 (other), CRS406 (settlor-equivalent), CRS407 (trustee-equivalent), CRS408 (protector-equivalent), CRS409 (beneficiary-equivalent), CRS410 (other-equivalent)
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 14: SelfCert -->
-  <div class="diagram" id="diag14">
-    <h3>SelfCertification Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of AccountHolder (1..1) and ControllingPerson (1..1)<br>
-      <strong>Purpose:</strong> Identifies whether valid self-certification was provided<br>
-      <strong>Values:</strong> CRS901 (True), CRS902 (False), CRS900 (not reported)<br>
-      <strong>For ControllingPerson:</strong> CRS1001 (True), CRS1002 (False), CRS1000 (not reported)
-    </div>
-    <div class="entity">
-      <div class="name">SelfCert</div>
-      <div class="type">CRS901/902/900 or CRS1001/1002/1000 enumeration</div>
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 15: AccountType -->
-  <div class="diagram" id="diag15">
-    <h3>AccountType Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of CorrectableAccountReport (1..1)<br>
-      <strong>Purpose:</strong> Identifies the type of financial account<br>
-      <strong>Values:</strong> CRS1101 (Depository), CRS1102 (Custodial), CRS1103 (Insurance/Annuity), CRS1104 (Investment Entity interest)
-    </div>
-    <div class="entity">
-      <div class="name">AccountType</div>
-      <div class="type">CRS1101-CRS1104 enumeration</div>
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 16: DDProcedure -->
-  <div class="diagram" id="diag16">
-    <h3>Due Diligence Procedure</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of CorrectableAccountReport (1..1)<br>
-      <strong>Purpose:</strong> Identifies the due diligence procedure applied<br>
-      <strong>Values:</strong> CRS1201 (New account), CRS1202 (Pre-existing account)
-    </div>
-    <div class="entity">
-      <div class="name">DDProcedure</div>
-      <div class="type">CRS1201/CRS1202 enumeration</div>
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 17: JointAccount -->
-  <div class="diagram" id="diag17">
-    <h3>JointAccount Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of CorrectableAccountReport (0..1)<br>
-      <strong>Purpose:</strong> Indicates whether account has joint holders<br>
-      <strong>Contains:</strong> Number (1..200, integer)
-    </div>
-    <div class="entity">
-      <div class="name">JointAccount</div>
-      <div class="type">xsd:complexType</div>
-    </div>
-    <div class="relationship">
-      <strong>Number:</strong> 1..200 (integer, how many joint holders)
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 18: NamePerson -->
-  <div class="diagram" id="diag18">
-    <h3>NamePerson Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of Individual or Organisation (1..unbounded)<br>
-      <strong>Purpose:</strong> Contains person/organisation name components<br>
-      <strong>Contains:</strong> PrecedingTitle, Title (0..unbounded), FirstName, MiddleName (0..unbounded), NamePrefix, LastName, GenerationIdentifier (0..unbounded), Suffix (0..unbounded), GeneralSuffix (0..1)
-    </div>
-    <div class="entity">
-      <div class="name">NamePerson</div>
-      <div class="type">xsd:complexType</div>
-    </div>
-    <div class="relationship">
-      <strong>Attributes:</strong> nameType (optional, OECDNameType enumeration)<br>
-      <strong>Title:</strong> 0..unbounded (e.g., Mr, Dr, Ms)<br>
-      <strong>FirstName:</strong> Given name<br>
-      <strong>LastName:</strong> Family name or company name<br>
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 18.1: BirthInfo -->
-  <div class="diagram" id="diag18b">
-    <h3>BirthInfo Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of Individual (0..1) within AccountHolder<br>
-      <strong>Purpose:</strong> Identifies birth information of the person<br>
-      <strong>Contains:</strong> BirthDate (0..1), City (0..1), CitySubentity (0..1), CountryInfo (0..1)
-    </div>
-    <div class="entity">
-      <div class="name">BirthInfo</div>
-      <div class="type">xsd:complexType</div>
-    </div>
-    <div class="relationship">
-      <strong>CountryInfo:</strong> Choice between CountryCode or FormerCountryName
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 19: ControllingPersonType -->
-  <div class="diagram" id="diag19">
-    <h3>ControllingPersonType Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of ControllingPerson (1..unbounded)<br>
-      <strong>Purpose:</strong> Identifies the type of controlling person<br>
-      <strong>Values:</strong> CRS801-CRS813 plus CRS800 (not reported)
-    </div>
-    <div class="entity">
-      <div class="name">ControllingPersonType</div>
-      <div class="type">CRS801-CRS813/CRS800 enumeration</div>
-    </div>
-    <div class="relationship">
-      <strong>CRS801:</strong> CP of legal person - ownership<br>
-      <strong>CRS802:</strong> CP of legal person - other means<br>
-      <strong>CRS803:</strong> CP of legal person - senior managing official<br>
-      <strong>CRS804-CRS807:</strong> CP of legal arrangement - trust (settlor/trustee/protector/beneficiary)<br>
-      <strong>CRS808:</strong> CP of legal arrangement - trust - other<br>
-      <strong>CRS809-CRS813:</strong> CP of legal arrangement - other (settlor-equivalent, trustee-equivalent, protector-equivalent, beneficiary-equivalent, other-equivalent)<br>
-      <strong>CRS800:</strong> Not reported (transitional measure)
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 20: TIN -->
-  <div class="diagram" id="diag20">
-    <h3>Tax Identification Number (TIN)</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of Individual (0..unbounded) or Organisation (0..unbounded) within AccountHolder<br>
-      <strong>Purpose:</strong> Identifies the tax identification number<br>
-      <strong>Attributes:</strong> issuedBy (optional, country code), INType (optional, string)
-    </div>
-    <div class="entity">
-      <div class="name">TIN</div>
-      <div class="type">cfc:TIN_Type</div>
-    </div>
-    <div class="relationship">
-      <strong>issuedBy:</strong> Optional country code of issuing country<br>
-      <strong>INType:</strong> Optional identification number type description
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 21: NameOrganisation -->
-  <div class="diagram" id="diag21">
-    <h3>NameOrganisation Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of Organisation (1..unbounded) within AccountHolder<br>
-      <strong>Purpose:</strong> Identifies the organisation name<br>
-      <strong>Contains:</strong> Value as string (no structured components like Individual Name)
-    </div>
-    <div class="entity">
-      <div class="name">NameOrganisation</div>
-      <div class="type">cfc:NameOrganisation_Type</div>
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 21: Address -->
-  <div class="diagram" id="diag22">
-    <h3>Address Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of Individual, Organisation, ReportingFI within AccountHolder/ReportingFI (0..unbounded)<br>
-      <strong>Purpose:</strong> Identifies the address<br>
-      <strong>Contains:</strong> Street, BuildingIdentifier, DistrictName, PostCode, City, CountryCode
-    </div>
-    <div class="entity">
-      <div class="name">Address</div>
-      <div class="type">cfc:Address_Type</div>
-    </div>
-    <div class="relationship">
-      <strong>CountryCode:</strong> Optional, identifies country<br>
-      <strong>Street:</strong> Optional<br>
-      <strong>BuildingIdentifier:</strong> Optional (e.g., "No: 100")<br>
-      <strong>DistrictName:</strong> Optional (e.g., "Levent")<br>
-      <strong>PostCode:</strong> Optional<br>
-      <strong>City:</strong> Optional
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 22: Sponsor/Intermediary -->
-  <div class="diagram" id="diag23">
-    <h3>Sponsor/Intermediary Elements</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of ReportingGroup (0..1 each)<br>
-      <strong>Purpose:</strong> Identify sponsor and intermediary financial institutions<br>
-      <strong>Contains:</strong> Same structure as CorrectableOrganisationParty_Type
-    </div>
-    <div class="entity">
-      <div class="name">Sponsor / Intermediary</div>
-      <div class="type">CorrectableOrganisationParty_Type</div>
-    </div>
-    <div class="relationship">
-      <strong>Optional elements:</strong> DocSpec, ResCountryCode, IN, Name, Address
-    </div>
-  </div>
-
-  <div class="page-break"></div>
-
-  <!-- Diagram 22: PoolReport -->
-  <div class="diagram" id="diag24">
-    <h3>PoolReport Element</h3>
-    <div class="description">
-      <strong>Location:</strong> Child of ReportingGroup (0..unbounded)<br>
-      <strong>Purpose:</strong> Identifies pooled account reports<br>
-      <strong>Type:</strong> ftc:CorrectablePoolReport_Type
-    </div>
-    <div class="entity">
-      <div class="name">PoolReport</div>
-      <div class="type">ftc:CorrectablePoolReport_Type</div>
-    </div>
-  </div>
-
-  <div class="footer" style="position: fixed; bottom: 0; width: 100%;">
-    <p>Bu belge OECD Reviziyonlu Ortak Raporlama Standardı (CRS) XSD v3.0 Schema Tanım Diline ait sayfalar 43-55'in HTML temsilidir.<br>
-    Orijinal belge: Amended Common Reporting Standard XML Schema User Guide for Tax Administrations</p>
+  <div class="stats">
+    <div class="stat"><div class="number" id="total-elements">Yükleniyor...</div><div class="label">Toplam Element</div></div>
+    <div class="stat"><div class="number" id="mandatory">Zorunlu: 0</div><div class="label">Zorunlu</div></div>
+    <div class="stat"><div class="number" id="optional">İsteğe bağlı: 0</div><div class="label">İsteğe bağlı</div></div>
   </div>
 </div>
+
+<script>
+// XML element verisi (syntax highlighting için)
+const xmlLines = [
+  { cls: 'comment', text: '<?xml version="1.0" encoding="UTF-8"?>' },
+  { cls: 'directive', text: 'encoding="UTF-8"?>' },
+  { cls: 'tag', text: '<crs:CRS_OECD' },
+  { cls: 'attr', text: ' xmlns:crs="urn:oecd:ties:crs:v3"' },
+  { cls: 'attr', text: ' xmlns:cfc="urn:oecd:ties:commontypesfatcacrs:v2"' },
+  { cls: 'attr', text: ' xmlns:stf="urn:oecd:ties:crsstf:v5"' },
+  { cls: 'attr', text: ' xmlns:iso="urn:oecd:ties:isocrstypes:v1"' },
+  { cls: 'attr', text: ' xmlns:xsi="http://w3.org"' },
+  { cls: 'attr', text: ' version="3.0"' },
+  { cls: 'tag-close', text: '>' },
+  { cls: 'tag', text: '<crs:MessageSpec>' },
+  { cls: 'tag', text: '<crs:SendingCompanyIN>1234567890</crs:SendingCompanyIN>' },
+  { cls: 'tag', text: '<crs:TransmittingCountry>TR</crs:TransmittingCountry>' },
+  { cls: 'tag', text: '<crs:ReceivingCountry>TR</crs:ReceivingCountry>' },
+  { cls: 'tag', text: '<crs:MessageType>CRS</crs:MessageType>' },
+  { cls: 'comment', text: '<!-- v3.0 ZORUNLU FORMAT: GonderenUlke + Yil + AliciUlke + BenzersizID -->' },
+  { cls: 'tag', text: '<crs:MessageRefId>TR2026TR-FI1234567890-0001</crs:MessageRefId>' },
+  { cls: 'comment', text: '<!-- v3.0: Schema seviyesinde Validation (zorunlu) -->' },
+  { cls: 'tag', text: '<crs:MessageTypeIndic>CRS701</crs:MessageTypeIndic>' },
+  { cls: 'tag', text: '<crs:ReportingPeriod>2026-12-31</crs:ReportingPeriod>' },
+  { cls: 'tag', text: '<crs:Timestamp>2027-05-15T10:30:00</crs:Timestamp>' },
+  { cls: 'tag-close', text: '</crs:MessageSpec>' },
+  { cls: 'tag', text: '<crs:CrsBody>' },
+  { cls: 'tag', text: '<crs:ReportingFI>' },
+  { cls: 'tag', text: '<crs:ResCountryCode>TR</crs:ResCountryCode>' },
+  { cls: 'tag', text: '<crs:IN issuedBy="TR" INType="TIN">1234567890</crs:IN>' },
+  { cls: 'tag', text: '<crs:Name nameType="OECD207">Ornek Katilim ve Mevduat Bankasi A.S.</crs:Name>' },
+  { cls: 'tag', text: '<crs:Address legalAddressType="OECD303">' },
+  { cls: 'tag', text: '<cfc:CountryCode>TR</cfc:CountryCode>' },
+  { cls: 'tag', text: '<cfc:AddressFix>' },
+  { cls: 'tag', text: '<cfc:Street>Buyukdere Caddesi</cfc:Street>' },
+  { cls: 'tag', text: '<cfc:BuildingIdentifier>No: 100</cfc:BuildingIdentifier>' },
+  { cls: 'tag', text: '<cfc:DistrictName>Levent</cfc:DistrictName>' },
+  { cls: 'tag', text: '<cfc:PostCode>34330</cfc:PostCode>' },
+  { cls: 'tag', text: '<cfc:City>Istanbul</cfc:City>' },
+  { cls: 'tag-close', text: '</cfc:AddressFix>' },
+  { cls: 'tag-close', text: '</crs:Address>' },
+  { cls: 'tag', text: '<crs:DocSpec>' },
+  { cls: 'tag', text: '<stf:DocTypeIndic>OECD1</stf:DocTypeIndic>' },
+  { cls: 'comment', text: '<!-- v3.0 ZORUNLU FORMAT: Her durumda gonderen ulke kodu ile baslamali -->' },
+  { cls: 'tag', text: '<stf:DocRefId>TR2026-FI1234567890-RFI001</stf:DocRefId>' },
+  { cls: 'tag-close', text: '</crs:DocSpec>' },
+  { cls: 'tag-close', text: '</crs:ReportingFI>' },
+  { cls: 'comment', text: '<!-- SENARYO 1: Gercek Kisi + Ortak Hesap + Yeni Hesap + Mevduat Hesabi -->' },
+  { cls: 'tag', text: '<crs:AccountReport>' },
+  { cls: 'tag', text: '<crs:DocSpec><stf:DocTypeIndic>OECD1</stf:DocTypeIndic></crs:DocSpec>' },
+  { cls: 'tag', text: '<crs:AccountNumber AcctNumberType="OECD601">TR330006100519786457841326</crs:AccountNumber>' },
+  { cls: 'tag', text: '<crs:AccountHolder>' },
+  { cls: 'tag', text: '<crs:SelfCert>CRS901</crs:SelfCert>' },
+  { cls: 'tag', text: '<crs:Individual>' },
+  { cls: 'tag', text: '<crs:ResCountryCode>DE</crs:ResCountryCode>' },
+  { cls: 'tag', text: '<crs:Name nameType="OECD202">' },
+  { cls: 'tag', text: '<crs:FirstName>Hans</crs:FirstName>' },
+  { cls: 'tag', text: '<crs:LastName>Mueller</crs:LastName>' },
+  { cls: 'tag-close', text: '</crs:Name>' },
+  { cls: 'tag', text: '<crs:Address legalAddressType="OECD302">' },
+  { cls: 'tag', text: '<cfc:CountryCode>DE</cfc:CountryCode>' },
+  { cls: 'tag', text: '<cfc:AddressFix>' },
+  { cls: 'tag', text: '<cfc:Street>Berliner Strasse</cfc:Street>' },
+  { cls: 'tag', text: '<cfc:BuildingIdentifier>No: 42</cfc:BuildingIdentifier>' },
+  { cls: 'tag', text: '<cfc:PostCode>10115</cfc:PostCode>' },
+  { cls: 'tag', text: '<cfc:City>Berlin</cfc:City>' },
+  { cls: 'tag-close', text: '</cfc:AddressFix>' },
+  { cls: 'tag-close', text: '</crs:Address>' },
+  { cls: 'tag-close', text: '</crs:Individual>' },
+  { cls: 'tag-close', text: '</crs:AccountHolder>' },
+  { cls: 'tag', text: '<crs:AccountBalance currCode="EUR">15420.50</crs:AccountBalance>' },
+  { cls: 'tag', text: '<crs:Payment>' },
+  { cls: 'tag', text: '<crs:Type>CRS502</crs:Type>' },
+  { cls: 'tag', text: '<crs:PaymentAmnt currCode="EUR">310.25</crs:PaymentAmnt>' },
+  { cls: 'tag-close', text: '</crs:Payment>' },
+  { cls: 'comment', text: '<!-- v3.0 YENI ZORUNLU ALAN: Gecerli oz-beyan alindi -->' },
+  { cls: 'tag', text: '<crs:DDProcedure>CRS1201</crs:DDProcedure>' },
+  { cls: 'tag', text: '<crs:AccountType>CRS1101</crs:AccountType>' },
+  { cls: 'comment', text: '<!-- v3.0 YENI ALAN: Ortak hesap ise ortak sayisi (1-200) -->' },
+  { cls: 'tag', text: '<crs:JointAccount><crs:Number>2</crs:Number></crs:JointAccount>' },
+  { cls: 'tag-close', text: '</crs:AccountReport>' },
+  { cls: 'comment', text: '<!-- SENARYO 2: Pasif NFE Kurum + Coklu Kontrol Eden Kisi Rolu -->' },
+  { cls: 'tag', text: '<crs:AccountReport>' },
+  { cls: 'tag', text: '<crs:DocSpec><stf:DocTypeIndic>OECD1</stf:DocTypeIndic></crs:DocSpec>' },
+  { cls: 'tag', text: '<crs:AccountNumber AcctNumberType="OECD603" ClosedAccount="false">US0378331005</crs:AccountNumber>' },
+  { cls: 'tag', text: '<crs:AccountHolder>' },
+  { cls: 'tag', text: '<crs:SelfCert>CRS901</crs:SelfCert>' },
+  { cls: 'tag', text: '<crs:Organisation>' },
+  { cls: 'tag', text: '<crs:ResCountryCode>TR</crs:ResCountryCode>' },
+  { cls: 'tag', text: '<crs:IN issuedBy="TR" INType="TIN">9876543210</crs:IN>' },
+  { cls: 'tag', text: '<crs:Name nameType="OECD207">Anadolu Global Yatirim Ltd. Sti.</crs:Name>' },
+  { cls: 'tag', text: '<cfc:CountryCode>TR</cfc:CountryCode>' },
+  { cls: 'tag', text: '<cfc:AddressFix>' },
+  { cls: 'tag', text: '<cfc:City>Ankara</cfc:City>' },
+  { cls: 'tag-close', text: '</cfc:AddressFix>' },
+  { cls: 'tag-close', text: '</cfc:Address>' },
+  { cls: 'tag-close', text: '</crs:Organisation>' },
+  { cls: 'tag', text: '<crs:AcctHolderType>CRS101</crs:AcctHolderType>' },
+  { cls: 'tag-close', text: '</crs:AccountHolder>' },
+  { cls: 'comment', text: '<!-- v3.0: Validation ve coklu rol (maxOccurs=unbounded) destekler -->' },
+  { cls: 'tag', text: '<crs:ControllingPerson>' },
+  { cls: 'tag', text: '<crs:Individual>' },
+  { cls: 'tag', text: '<crs:ResCountryCode>NL</crs:ResCountryCode>' },
+  { cls: 'tag', text: '<crs:TIN issuedBy="NL">998877665</crs:TIN>' },
+  { cls: 'tag', text: '<crs:Name nameType="OECD202">' },
+  { cls: 'tag', text: '<crs:FirstName>Sophie</crs:FirstName>' },
+  { cls: 'tag', text: '<crs:LastName>Van Dijk</crs:LastName>' },
+  { cls: 'tag-close', text: '</crs:Name>' },
+  { cls: 'tag-close', text: '</crs:Individual>' },
+  { cls: 'tag', text: '<crs:CtrlgPersonType>CRS801</crs:CtrlgPersonType>' },
+  { cls: 'tag', text: '<crs:CtrlgPersonType>CRS803</crs:CtrlgPersonType>' },
+  { cls: 'comment', text: '<!-- v3.0 YENI ZORUNLU ALAN: Kontroleden kisi oz-beyani -->' },
+  { cls: 'tag', text: '<crs:SelfCert>CRS1001</crs:SelfCert>' },
+  { cls: 'tag-close', text: '</crs:ControllingPerson>' },
+  { cls: 'tag', text: '<crs:AccountBalance currCode="USD">250000.00</crs:AccountBalance>' },
+  { cls: 'tag', text: '<crs:DDProcedure>CRS1202</crs:DDProcedure>' },
+  { cls: 'tag', text: '<crs:AccountType>CRS1102</crs:AccountType>' },
+  { cls: 'comment', text: '<!-- SENARYO 3: Elektronik Para Urunu (OECD606) ve Trust EquityInterestType (CRS404) -->' },
+  { cls: 'tag', text: '<crs:AccountReport>' },
+  { cls: 'tag', text: '<crs:DocSpec><stf:DocTypeIndic>OECD1</stf:DocTypeIndic></crs:DocSpec>' },
+  { cls: 'tag', text: '<crs:AccountNumber AcctNumberType="OECD606">EPARA-9000123456</crs:AccountNumber>' },
+  { cls: 'tag', text: '<crs:EquityInterestType>CRS404</crs:EquityInterestType>' },
+  { cls: 'tag', text: '<crs:SelfCert>CRS902</crs:SelfCert>' },
+  { cls: 'tag', text: '<crs:ResCountryCode>GB</crs:ResCountryCode>' },
+  { cls: 'tag', text: '<crs:TIN issuedBy="GB">AB123456C</crs:TIN>' },
+  { cls: 'tag', text: '<crs:Name nameType="OECD202">' },
+  { cls: 'tag', text: '<crs:FirstName>Oliver</crs:FirstName>' },
+  { cls: 'tag', text: '<crs:LastName>Smith</crs:LastName>' },
+  { cls: 'tag-close', text: '</crs:Name>' },
+  { cls: 'tag', text: '<crs:Address legalAddressType="OECD302">' },
+  { cls: 'tag', text: '<cfc:CountryCode>GB</cfc:CountryCode>' },
+  { cls: 'tag', text: '<cfc:AddressFix>' },
+  { cls: 'tag', text: '<cfc:City>London</cfc:City>' },
+  { cls: 'tag-close', text: '</cfc:AddressFix>' },
+  { cls: 'tag-close', text: '</cfc:Address>' },
+  { cls: 'tag-close', text: '</crs:Individual>' },
+  { cls: 'tag-close', text: '</crs:AccountHolder>' },
+  { cls: 'tag', text: '<crs:AccountBalance currCode="GBP">8500.00</crs:AccountBalance>' },
+  { cls: 'tag', text: '<crs:DDProcedure>CRS1201</crs:DDProcedure>' },
+  { cls: 'tag', text: '<crs:AccountType>CRS1104</crs:AccountType>' },
+  { cls: 'tag-close', text: '</crs:AccountReport>' },
+  { cls: 'comment', text: '<!-- SENARYO 3: Elektronik Para Urunu (OECD606) ve Trust EquityInterestType (CRS404) -->' },
+  { cls: 'tag-close', text: '</crs:ReportingGroup>' },
+  { cls: 'tag-close', text: '</crs:CrsBody>' },
+  { cls: 'tag-close', text: '</crs:CRS_OECD>' }
+];
+
+let expandedNodes = new Set();
+let currentStep = 1;
+
+const xmlDisplay = document.getElementById('xml-display');
+const totalElementsEl = document.getElementById('total-elements');
+const mandatoryEl = document.getElementById('mandatory');
+const optionalEl = document.getElementById('optional');
+const hierarchyEl = document.getElementById('hierarchy');
+const stepBadges = document.querySelectorAll('.step-badge');
+
+function countTotalElements(node, count = 0) {
+  count++;
+  if (node.children) {
+    for (const child of node.children) {
+      count = countTotalElements(child, count);
+    }
+  }
+  if (node.attributes) {
+    count += node.attributes.length;
+  }
+  return count;
+}
+
+const totalElements = countTotalElements({
+  children: xmlLines.map(l => ({ name: l.text.replace(/[<>]/g, ''), type: l.cls }))
+});
+
+// Basit sayaç - gerçek parsing yerine eleman sayısı
+function updateStats() {
+  const visibleNodes = xmlDisplay.querySelectorAll('.line');
+  let visMand = 0, visOpt = 0;
+  visibleNodes.forEach(n => {
+    if (n.querySelector('.mandatory')) visMand++;
+    if (n.querySelector('.optional')) visOpt++;
+  });
+  totalElementsEl.textContent = visibleNodes.length;
+  mandatoryEl.textContent = 'Zorunlu: ' + visMand;
+  optionalEl.textContent = 'İsteğe bağlı: ' + visOpt;
+}
+
+function renderNode(node, container) {
+  const hasChildren = node.children && node.children.length > 0;
+  const isLeaf = !hasChildren;
+
+  const details = document.createElement('details');
+  details.className = isLeaf ? 'leaf-node' : 'parent-node';
+
+  const summary = document.createElement('summary');
+  summary.className = isLeaf ? 'leaf-summary' : 'parent-summary';
+
+  let html = '';
+  if (hasChildren) {
+    html += '<div class="toggle">▶</div>';
+  } else {
+    html += '<div class="toggle">·</div>';
+  }
+
+  const badgeClass = node.mandatory ? 'badge-mandatory' : 'badge-optional';
+  const badgeText = node.mandatory ? 'ZORUNLU' : 'İSTEĞE BAĞLI';
+  html += '<span class="badge ' + badgeClass + '">' + badgeText + '</span>';
+  html += '<span class="count-badge">' + (node.cardinality || '?') + '</span>';
+  html += '<span class="elem-name">' + node.name + '</span>';
+  html += '<span class="elem-type">' + node.type + '</span>';
+
+  summary.innerHTML = html;
+  details.appendChild(summary);
+
+  // Attributes (shown immediately)
+  if (node.attributes && node.attributes.length > 0) {
+    const attrDiv = document.createElement('div');
+    attrDiv.className = 'children';
+    attrDiv.style.borderLeftColor = '#3b82f6';
+    attrDiv.style.marginTop = '4px';
+    for (const attr of node.attributes) {
+      const attrRow = document.createElement('div');
+      attrRow.className = 'attr-row';
+      attrRow.innerHTML = '<span class="badge badge-attr">ATTR</span><span class="count-badge">' + attr.usage + '</span><span class="elem-name">@' + attr.name + '</span><span class="elem-type">' + attr.type + '</span>';
+      attrDiv.appendChild(attrRow);
+    }
+    details.appendChild(attrDiv);
+  }
+
+  // Element children (collapsible via details/summary)
+  if (hasChildren) {
+    const childrenDiv = document.createElement('div');
+    childrenDiv.className = 'children';
+    for (const child of node.children) {
+      renderNode(child, childrenDiv);
+    }
+    details.appendChild(childrenDiv);
+  }
+
+  // Click handler - ONLY on this element, stopPropagation prevents bubbling
+  summary.addEventListener('click', function(e) {
+    e.stopImmediatePropagation();
+    if (!hasChildren) return;
+
+    if (expandedNodes.has(details.id)) {
+      // Collapse
+      expandedNodes.delete(details.id);
+      details.classList.remove('expanded');
+      details.classList.add('collapsed');
+      const children = details.querySelector('.children');
+      if (children) children.style.display = 'none';
+      const toggle = details.querySelector('.toggle');
+      if (toggle) toggle.textContent = '▶';
+    } else {
+      // Expand
+      expandedNodes.add(details.id);
+      details.classList.remove('collapsed');
+      details.classList.add('expanded');
+      const childrenDiv = document.createElement('div');
+      childrenDiv.className = 'children';
+      for (const child of node.children) {
+        renderNode(child, childrenDiv);
+      }
+      details.appendChild(childrenDiv);
+      const toggle = details.querySelector('.toggle');
+      if (toggle) toggle.textContent = '▼';
+      updateStats();
+    }
+  });
+
+  container.appendChild(details);
+}
+
+function renderTree() {
+  xmlDisplay.innerHTML = '';
+  expandedNodes.clear();
+  renderNode({ name: 'CRS_OECD', type: 'xsd:element (root)', mandatory: true, children: xmlLines }, xmlDisplay);
+  updateStats();
+}
+
+// Adım geçiş fonksiyonu
+function nextStep() {
+  currentStep++;
+  stepBadges.forEach((b, i) => {
+    b.classList.remove('active', 'completed');
+    if (i + 1 < currentStep) b.classList.add('completed');
+    else if (i + 1 === currentStep) b.classList.add('active');
+  });
+}
+
+// Başlat
+renderTree();
+updateStats();
+
+// Adım butonları
+document.querySelectorAll('.step-badge').forEach(b => {
+  b.addEventListener('click', () => {
+    currentStep = parseInt(b.id.replace('step', ''));
+    nextStep();
+  });
+});
+</script>
 </body>
 </html>
