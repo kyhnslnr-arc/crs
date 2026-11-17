@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRS OECD v3.0 - Initial, Correction 1, Correction 2 Senaryosu</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', system-ui, sans-serif; height: 100vh; overflow-y: auto; }
+  #container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+  h1 { color: #38bdf8; text-align: center; margin-bottom: 30px; font-size: 1.5rem; }
+  #step-indicator { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+  .step-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; background: #334155; color: #94a3b8; border: 1px solid #475569; }
+  .step-badge.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+  .step-badge.completed { background: #16a34a; color: #fff; border-color: #16a34a; }
+  .columns { display: flex; gap: 30px; margin-bottom: 40px; }
+  .column { flex: 1; background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; position: relative; min-height: 600px; }
+  .column.hidden { display: none; }
+  .column-title { font-size: 1.1rem; font-weight: 700; color: #38bdf8; margin-bottom: 16px; text-align: center; border-bottom: 1px solid #334155; padding-bottom: 8px; }
+  .tree-item { margin: 8px 0; position: relative; }
+  details { margin: 6px 0; }
+  summary { display: flex; align-items: center; padding: 8px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; background: rgba(30,41,59,0.6); outline: none; color: #e2e8f0; font-size: 0.85rem; }
+  summary:hover { background: rgba(59,130,246,0.15); border-color: #3b82f6; }
+  details[open] > summary { background: rgba(37,99,235,0.2); border-color: #2563eb; }
+  summary::-webkit-details-marker { display: none; }
+  .toggle { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; margin-right: 8px; font-size: 11px; font-weight: bold; color: #94a3b8; user-select: none; }
+  details[open] > summary .toggle { color: #38bdf8; }
+  details:not([open]) > summary .toggle { color: #64748b; }
+  .elem-name { font-weight: 600; color: #f8fafc; min-width: 130px; }
+  .elem-type { color: #a78bfa; font-size: 0.8rem; margin-right: 8px; min-width: 120px; }
+  .badge { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 0.7rem; font-weight: 600; margin-right: 6px; }
+  .badge-mandatory { background: #16a34a; color: #fff; }
+  .badge-optional { background: #ea580c; color: #fff; }
+  .badge-attr { background: #3b82f6; color: #fff; }
+  .attr-row { font-size: 0.8rem; color: #94a3b8; padding: 4px 12px 4px 40px; margin: 2px 0; background: rgba(15,23,42,0.4); border-radius: 4px; border-left: 3px solid #3b82f6; cursor: default; }
+  .highlight { background: rgba(37,99,235,0.25) !important; border-color: #2563eb !important; }
+  .highlight-black { background: rgba(15,23,42,0.9) !important; border-color: #f8fafc !important; color: #f8fafc; }
+  .children { padding-left: 26px; border-left: 2px solid #334155; margin-top: 4px; animation: slideDown 0.3s ease; }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+  #svg-arrows { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+  .arrow-line { fill: none; stroke: #3b82f6; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .arrow-head { fill: #3b82f6; }
+  .arrow-label { font-size: 0.75rem; fill: #38bdf8; font-weight: 600; pointer-events: none; }
+  .btn-next { display: block; margin: 20px auto 0; padding: 10px 24px; background: #3b82f6; color: #fff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem; }
+  .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-next:hover:not(:disabled) { background: #2563eb; }
+  #summary { margin-top: 30px; background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; display: none; }
+  #summary h3 { color: #38bdf8; margin-bottom: 12px; }
+  #summary ul { margin-left: 20px; color: #cbd5e1; line-height: 1.6; }
+  #summary ul li { margin-bottom: 8px; }
+  .key-term { color: #38bdf8; font-weight: 600; }
+</style>
+</head>
+<body>
+<div id="container">
+  <h1>CRS OECD v3.0 — İlk Bildirim, Düzeltme 1 ve Düzeltme 2 Senaryosu</h1>
+  <div id="step-indicator">
+    <span class="step-badge active" id="step1-badge">1. İlk Rapor (Initial)</span>
+    <span class="step-badge" id="step2-badge">2. Düzeltme 1 (Correction 1)</span>
+    <span class="step-badge" id="step3-badge">3. Düzeltme 2 (Correction 2)</span>
+  </div>
+
+  <div class="columns" id="columns-container">
+    <!-- COLUMN 1: INITIAL -->
+    <div class="column" id="col-initial">
+      <div class="column-title">Initial</div>
+      <details id="det-initial-root">
+        <summary class="root-node">
+          <div class="toggle">▶</div>
+          <span class="elem-name">&lt;CRS_OECD&gt;</span>
+          <span class="elem-type">xsd:element (root)</span>
+          <span class="badge badge-optional">0..1</span>
+        </summary>
+        <div class="children">
+          <details>
+            <summary>
+              <div class="toggle">▶</div>
+              <span class="elem-name">&lt;CrsBody&gt;</span>
+              <span class="elem-type">CrsBody_Type</span>
+              <span class="badge badge-mandatory">1..1</span>
+            </summary>
+            <div class="children">
+              <details>
+                <summary class="highlight" id="sum-initial-rfi">
+                  <div class="toggle">▶</div>
+                  <span class="elem-name">&lt;ReportingFI&gt;</span>
+                  <span class="elem-type">CorrectableOrganisationParty_Type</span>
+                  <span class="badge badge-mandatory">1..1</span>
+                </summary>
+                <div class="children">
+                  <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD1</span></div>
+                  <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">F1</span></div>
+                </div>
+              </details>
+              <details id="det-initial-rg">
+                <summary>
+                  <div class="toggle">▶</div>
+                  <span class="elem-name">&lt;ReportingGroup&gt;</span>
+                  <span class="elem-type">xsd:complexType (inline)</span>
+                  <span class="badge badge-mandatory">1..1</span>
+                </summary>
+                <div class="children">
+                  <details id="det-initial-ar1">
+                    <summary class="highlight" id="sum-initial-ar1">
+                      <div class="toggle">▶</div>
+                      <span class="elem-name">&lt;AccountReport&gt;</span>
+                      <span class="elem-type">CorrectableAccountReport_Type</span>
+                      <span class="badge badge-mandatory">1..1</span>
+                    </summary>
+                    <div class="children">
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD1</span></div>
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">AR1</span></div>
+                    </div>
+                  </details>
+                  <details>
+                    <summary class="highlight-black">
+                      <div class="toggle">▶</div>
+                      <span class="elem-name">&lt;AccountReport&gt;</span>
+                      <span class="elem-type">CorrectableAccountReport_Type</span>
+                      <span class="badge badge-mandatory">1..1</span>
+                    </summary>
+                    <div class="children">
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD1</span></div>
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">AR2</span></div>
+                    </div>
+                  </details>
+                </div>
+              </details>
+            </div>
+          </details>
+        </div>
+      </details>
+    </div>
+
+    <!-- COLUMN 2: CORRECTION 1 -->
+    <div class="column hidden" id="col-correction1">
+      <div class="column-title">Correction 1</div>
+      <details id="det-c1-root">
+        <summary class="root-node">
+          <div class="toggle">▶</div>
+          <span class="elem-name">&lt;CRS_OECD&gt;</span>
+          <span class="elem-type">xsd:element (root)</span>
+          <span class="badge badge-optional">0..1</span>
+        </summary>
+        <div class="children">
+          <details>
+            <summary>
+              <div class="toggle">▶</div>
+              <span class="elem-name">&lt;CrsBody&gt;</span>
+              <span class="elem-type">CrsBody_Type</span>
+              <span class="badge badge-mandatory">1..1</span>
+            </summary>
+            <div class="children">
+              <details>
+                <summary class="highlight" id="sum-c1-rfi">
+                  <div class="toggle">▶</div>
+                  <span class="elem-name">&lt;ReportingFI&gt;</span>
+                  <span class="elem-type">CorrectableOrganisationParty_Type</span>
+                  <span class="badge badge-mandatory">1..1</span>
+                </summary>
+                <div class="children">
+                  <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD0</span></div>
+                  <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">F1</span></div>
+                </div>
+              </details>
+              <details id="det-c1-rg">
+                <summary>
+                  <div class="toggle">▶</div>
+                  <span class="elem-name">&lt;ReportingGroup&gt;</span>
+                  <span class="elem-type">xsd:complexType (inline)</span>
+                  <span class="badge badge-mandatory">1..1</span>
+                </summary>
+                <div class="children">
+                  <details id="det-c1-ar3">
+                    <summary class="highlight-black" id="sum-c1-ar3">
+                      <div class="toggle">▶</div>
+                      <span class="elem-name">&lt;AccountReport&gt;</span>
+                      <span class="elem-type">CorrectableAccountReport_Type</span>
+                      <span class="badge badge-mandatory">1..1</span>
+                    </summary>
+                    <div class="children">
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD2</span></div>
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">AR3</span></div>
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@CorrDocRefId</span><span class="elem-type">AR1</span></div>
+                    </div>
+                  </details>
+                </div>
+              </details>
+            </div>
+          </details>
+        </div>
+      </details>
+    </div>
+
+    <!-- COLUMN 3: CORRECTION 2 -->
+    <div class="column hidden" id="col-correction2">
+      <div class="column-title">Correction 2</div>
+      <details id="det-c2-root">
+        <summary class="root-node">
+          <div class="toggle">▶</div>
+          <span class="elem-name">&lt;CRS_OECD&gt;</span>
+          <span class="elem-type">xsd:element (root)</span>
+          <span class="badge badge-optional">0..1</span>
+        </summary>
+        <div class="children">
+          <details>
+            <summary>
+              <div class="toggle">▶</div>
+              <span class="elem-name">&lt;CrsBody&gt;</span>
+              <span class="elem-type">CrsBody_Type</span>
+              <span class="badge badge-mandatory">1..1</span>
+            </summary>
+            <div class="children">
+              <details>
+                <summary class="highlight" id="sum-c2-rfi">
+                  <div class="toggle">▶</div>
+                  <span class="elem-name">&lt;ReportingFI&gt;</span>
+                  <span class="elem-type">CorrectableOrganisationParty_Type</span>
+                  <span class="badge badge-mandatory">1..1</span>
+                </summary>
+                <div class="children">
+                  <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD0</span></div>
+                  <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">F1</span></div>
+                </div>
+              </details>
+              <details id="det-c2-rg">
+                <summary>
+                  <div class="toggle">▶</div>
+                  <span class="elem-name">&lt;ReportingGroup&gt;</span>
+                  <span class="elem-type">xsd:complexType (inline)</span>
+                  <span class="badge badge-mandatory">1..1</span>
+                </summary>
+                <div class="children">
+                  <details id="det-c2-ar4">
+                    <summary class="highlight-black" id="sum-c2-ar4">
+                      <div class="toggle">▶</div>
+                      <span class="elem-name">&lt;AccountReport&gt;</span>
+                      <span class="elem-type">CorrectableAccountReport_Type</span>
+                      <span class="badge badge-mandatory">1..1</span>
+                    </summary>
+                    <div class="children">
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD2</span></div>
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">AR4</span></div>
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@CorrDocRefId</span><span class="elem-type">AR3</span></div>
+                    </div>
+                  </details>
+                </div>
+              </details>
+            </div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <svg id="svg-arrows" width="1400" height="700" style="position:absolute; top:100px; left:0; pointer-events:none; z-index:5;"></svg>
+
+  <button class="btn-next" id="btn-next" disabled>Sonraki Adım ▶</button>
+
+  <div id="summary">
+    <h3>Senaryo Özeti</h3>
+    <ul>
+      <li><span class="key-term">Initial:</span> Gönderici Yetkili, bir Raporlama Finansal Kurumu (RFI) ve iki Hesap Raporu (AR1, AR2) içeren ilk mesajı gönderir.</li>
+      <li><span class="key-term">Correction 1:</span> İlk mesajdaki AR1'deki ödeme miktarı (Payment Amount) düzeltülür. <span class="key-term">CorrDocRefId = AR1</span> olarak gösterilir — yani hemen önceki mesaja referans verilir. <span class="key-term">DocTypeIndic = OECD2</span> (düzeltme mesajı). Raporlama FI tekrar gönderilir ama <span class="key-term">DocTypeIndic = OECD0</span> ve <span class="key-term">DocRefId = F1</span> (hiç değişmediği için aynı kalır).</li>
+      <li><span class="key-term">Correction 2:</span> Aynı AR3'deki hesap bakiyesi (Account Balance) tekrar düzeltülür. <span class="key-term">CorrDocRefId = AR3</span> olarak gösterilir — yine hemen önceki mesaja (Correction 1) referans verilir, ilk mesaja değil. AR2 (düzeltme gerektirmeyen ikinci hesap) bu mesajda yer almaz.</li>
+      <li><span class="key-term">Kural:</span> Her zaman sadece düzeltme gerektiren Hesap Raporu yeniden gönderilir; diğerleri dışarı bırakılır.</li>
+      <li><span class="key-term">DocRefId formatı:</span> Gönderici yetkilidenin ülke kodu ile başlamalı ve zamana ve mekâna göre benzersiz olmalıdır.</li>
+    </ul>
+  </div>
+</div>
+<script>
+// State management
+let currentStep = 1; // 1=initial, 2=correction1, 3=correction2
+
+const btnNext = document.getElementById('btn-next');
+const summary = document.getElementById('summary');
+const svg = document.getElementById('svg-arrows');
+
+function updateStepUI() {
+  // Update badges
+  document.querySelectorAll('.step-badge').forEach((b, i) => {
+    b.classList.remove('active', 'completed');
+    if (i + 1 < currentStep) b.classList.add('completed');
+    else if (i + 1 === currentStep) b.classList.add('active');
+  });
+
+  // Show/hide columns
+  document.getElementById('col-initial').classList.remove('hidden');
+  document.getElementById('col-correction1').classList.add('hidden');
+  document.getElementById('col-correction2').classList.add('hidden');
+
+  if (currentStep >= 2) document.getElementById('col-correction1').classList.remove('hidden');
+  if (currentStep >= 3) document.getElementById('col-correction2').classList.remove('hidden');
+
+  // Button state
+  if (currentStep === 1) {
+    btnNext.disabled = false;
+    btnNext.textContent = 'Düzeltme 1\'yi Göster ▶';
+    summary.style.display = 'none';
+    svg.innerHTML = '';
+  } else if (currentStep === 2) {
+    btnNext.disabled = false;
+    btnNext.textContent = 'Düzeltme 2\'yi Göster ▶';
+    summary.style.display = 'none';
+    drawArrows1();
+  } else {
+    btnNext.disabled = true;
+    btnNext.textContent = 'Senaryo Tamamlandı';
+    summary.style.display = 'block';
+    drawArrows2();
+  }
+}
+
+function drawArrows1() {
+  // Arrow from Initial ReportingFI DocRefId=F1 to Correction1 ReportingFI DocRefId=F1
+  // Arrow from Initial AR1 DocRefId=AR1 to Correction1 AccountReport CorrDocRefId=AR1
+  svg.innerHTML = '';
+  // We'll draw these using absolute positions - approximate
+  // Since we can't easily get element positions without DOM measurement,
+  // we'll draw illustrative arrows between column areas
+  const w = 1400;
+  const col1X = 150;
+  const col2X = 650;
+  const y1 = 200; // ReportingFI area
+  const y2 = 350; // AccountReport area
+
+  // Arrow 1: ReportingFI -> ReportingFI
+  svg.innerHTML += `
+    <line class="arrow-line" x1="${col1X + 200}" y1="${y1}" x2="${col2X + 50}" y2="${y1}" />
+    <path d="M ${col2X + 50} ${y1} L ${col2X + 40} ${y1 - 5} L ${col2X + 40} ${y1 + 5} Z" class="arrow-head" />
+    <text x="${(col1X + 200 + col2X + 50) / 2}" y="${y1 - 10}" class="arrow-label">DocRefId = F1 (aynı kalır)</text>
+  `;
+
+  // Arrow 2: AR1 -> Correction1 AR3 (CorrDocRefId)
+  svg.innerHTML += `
+    <line class="arrow-line" x1="${col1X + 200}" y1="${y2}" x2="${col2X + 50}" y2="${y2 + 80}" />
+    <path d="M ${col2X + 50} ${y2 + 80} L ${col2X + 40} ${y2 + 75} L ${col2X + 40} ${y2 + 85} Z" class="arrow-head" />
+    <text x="${(col1X + 200 + col2X + 50) / 2}" y="${y2 + 35}" class="arrow-label">CorrDocRefId = AR1</text>
+  `;
+}
+
+function drawArrows2() {
+  // Arrow from Correction1 AR3 to Correction2 AR4
+  svg.innerHTML = '';
+  const col2X = 650;
+  const col3X = 1150;
+  const y2 = 350;
+
+  svg.innerHTML += `
+    <line class="arrow-line" x1="${col2X + 200}" y1="${y2}" x2="${col3X + 50}" y2="${y2}" />
+    <path d="M ${col3X + 50} ${y2} L ${col3X + 40} ${y2 - 5} L ${col3X + 40} ${y2 + 5} Z" class="arrow-head" />
+    <text x="${(col2X + 200 + col3X + 50) / 2}" y="${y2 - 10}" class="arrow-label">CorrDocRefId = AR3</text>
+  `;
+}
+
+btnNext.addEventListener('click', () => {
+  currentStep++;
+  updateStepUI();
+});
+
+// Initialize
+updateStepUI();
+
+// Make key elements clickable to trigger progression
+document.getElementById('sum-initial-ar1').addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentStep === 1) {
+    // Auto-expand the details
+    const det = document.getElementById('det-initial-ar1');
+    det.open = true;
+  }
+});
+
+document.getElementById('sum-c1-ar3').addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentStep === 2) {
+    const det = document.getElementById('det-c1-ar3');
+    det.open = true;
+  }
+});
+
+document.getElementById('sum-c2-ar4').addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentStep === 3) {
+    const det = document.getElementById('det-c2-ar4');
+    det.open = true;
+  }
+});
+</script>
+</body>
+</html>
