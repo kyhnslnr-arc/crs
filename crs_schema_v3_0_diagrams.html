@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRS OECD XML Schema v3.0 - Schema Diagrams (Pages 43-55)</title>
+<title>CRS OECD XML Schema v3.0 - Schema Diagrams (Pages 43-55) - Interactive</title>
 <style>
   @page {
     size: A4;
@@ -22,10 +22,11 @@
     color: #000000;
     margin: 0;
     padding: 0;
+    background: #f8fafc;
   }
   h1 {
     font-size: 16pt;
-    color: #000000;
+    color: #1a1a1a;
     text-align: center;
     margin-bottom: 4px;
     border-bottom: 2px solid #000000;
@@ -58,32 +59,31 @@
     padding: 12px;
     margin-bottom: 12px;
     background-color: #fafafa;
+    transition: all 0.3s ease;
   }
   .diagram-box h3 {
     margin-top: 0;
     margin-bottom: 8px;
     font-size: 12pt;
+    color: #1a1a1a;
   }
   .diagram-box .description {
-    font-size: 9pt;
-    color: #333333;
-    line-height: 1.4;
-    margin-bottom: 8px;
-  }
-  .description {
     font-size: 10pt;
     color: #333333;
     line-height: 1.4;
-    margin: 6px 0;
-    text-align: justify;
-    font-style: italic;
+    margin-bottom: 8px;
   }
   .element-box {
     margin: 6px 0;
     padding: 4px 8px;
     background-color: #f5f5f5;
-    border-left: 3px solid #333333;
+    border-left: 3px solid #000000;
     border-radius: 3px;
+    transition: all 0.2s ease;
+  }
+  .element-box:hover {
+    background-color: #f0f4ff;
+    border-left-color: #3b82f6;
   }
   .element-box .element-name {
     font-weight: bold;
@@ -99,6 +99,7 @@
     margin: 3px 0;
     font-size: 9pt;
     color: #333333;
+    padding: 2px 0;
   }
   .attr-row .attr-name {
     font-weight: bold;
@@ -106,14 +107,6 @@
   }
   .attr-row .attr-value {
     color: #666666;
-  }
-  .mandatory {
-    color: #16a34a;
-    font-weight: bold;
-  }
-  .optional {
-    color: #ea580c;
-    font-weight: bold;
   }
   .signature {
     display: inline-block;
@@ -130,19 +123,21 @@
     background-color: #f0fdf4;
   }
   .signature-optional {
-    color: #ea580c;
-    border-color: #ea580c;
-    background-color: #fff7ed;
+    color: #059669;
+    border-color: #059669;
+    background-color: #f0fdf4;
+  }
+  .signature-mandatory-required {
+    color: #16a34a;
+    border-color: #16a34a;
+    background-color: #dcfce7;
+    font-weight: bold;
   }
   .toc {
     font-size: 10pt;
   }
   .toc li {
     margin: 4px 0;
-  }
-  .section-number {
-    font-weight: bold;
-    color: #000000;
   }
   .footer {
     font-size: 8pt;
@@ -157,47 +152,155 @@
     border-top: 1px solid #999999;
     margin: 12px 0;
   }
+  /* Interactive CSS */
+  details {
+    margin: 6px 0;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  summary {
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: #f8fafc;
+    border-bottom: 1px solid #e5e5e5;
+    transition: background 0.2s;
+  }
+  summary:hover {
+    background-color: #f0f4ff;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: "▶";
+    font-size: 10px;
+    color: #3b82f6;
+    float: right;
+    transition: transform 0.2s;
+  }
+  details[open] summary::after {
+    transform: rotate(90deg);
+  }
+  details > .children {
+    padding: 8px 12px;
+  }
+  details > .children .attr-row {
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 8pt;
+    font-weight: bold;
+    color: #fff;
+    margin-right: 4px;
+  }
+  .badge-mandatory {
+    background-color: #16a34a;
+    color: #fff;
+  }
+  .badge-optional {
+    background-color: #059669;
+    color: #fff;
+  }
+  .badge-attribut {
+    background-color: #3b82f6;
+    color: #fff;
+  }
+  .highlight {
+    background-color: #fef9c3;
+    border-left: 3px solid #f59e0b;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-weight: bold;
+  }
+  .highlight-mandatory {
+    background-color: #dcfce7;
+    border-left: 3px solid #16a34a;
+  }
+  .highlight-optional {
+    background-color: #dbeafe;
+    border-left: 3px solid #059669;
+  }
+  .separator {
+    border-top: 1px solid #e5e5e5;
+    margin: 8px 0;
+  }
+  #controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  #controls .btn {
+    padding: 6px 14px;
+    background-color: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  #controls .btn:hover {
+    background-color: #2563eb;
+  }
+  #controls .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 </style>
 </head>
 <body>
+<div id="controls">
+  <button class="btn" onclick="showStep(1)">1. Initial (İlk Rapor)</button>
+  <button class="btn" onclick="showStep(2)">2. Correction 1 (Düzeltme 1)</button>
+  <button class="btn" onclick="showStep(2)">3. Correction 2 (Düzeltme 2)</button>
+</div>
+
 <div id="container">
 
   <h1>Amended Common Reporting Standard (CRS)</h1>
   <h2>XML Schema v3.0 Schema Diagrams</h2>
   <p><em>User Guide for Tax Administrations</em></p>
   <p><strong>Schema Version:</strong> 3.0</p>
-  <p><strong>Document Version:</strong> This document represents pages 43-55 of the OECD CRS User Guide, containing the XML Schema v3.0 diagram descriptions.</p>
-
   <p class="description">The following diagrams represent the structure of the CRS XML Schema v3.0 as published by the OECD. This document excludes Sponsor, Intermediary, and Pool Report elements, as those are not used in CRS reporting scenarios. Only elements actively used in CRS reporting are documented.</p>
 
-  <div class="divider"></div>
+  <div class="page-break"></div>
 
   <h2 id="chapter1">Chapter 1: Overall CRS_OECD Structure</h2>
   <div class="diagram-box">
     <p class="description"><strong>Diagram:</strong> Overall CRS_OECD Structure Diagram<br>
     <strong>Page Reference:</strong> 43-44<br>
-    <strong>Description:</strong> Root-level structure showing the overall XML Schema hierarchy for the CRS message.</p>
-    <div class="element-box">
-      <span class="element-name">CRS_OECD (Root Element)</span>
-      <span class="element-type">Element: xsd:element</span>
-      <div class="attr-row"><span class="attr-name">@version (Optional):</span> <span class="attr-value">string, minLength=1, maxLength=10</span></div>
-      <div class="attr-row"><span class="attr-name">Namespace:</span> <span class="attr-value">urn:oecd:ties:crs:v3</span></div>
-      <div class="attr-row"><span class="attr-name">Parent:</span> None (root element)</div>
-    </div>
-    <div class="element-box">
-      <span class="element-name">Children (2 elements required):</span>
-      <ul style="margin:4px 0; padding-left:20px;">
-        <li><strong>MessageSpec</strong> (1..1)</li>
-        <li><strong>CrsBody</strong> (0..unbounded)</li>
-      </ul>
-    </div>
+    <strong>Description:</strong> Root-level structure showing the overall XML Schema hierarchy for the CRS message. This is the top-level element that wraps the entire CRS message structure.</p>
+    <details open>
+      <summary><span class="signature signature-mandatory">Mandatory</span><span class="element-name">CRS_OECD</span><span class="element-type">Element: xsd:element</span></summary>
+      <div class="children">
+        <div class="attr-row"><span class="attr-name">@version (Optional):</span> <span class="attr-value">string, minLength=1, maxLength=10</span></div>
+        <div class="attr-row"><span class="attr-name">Namespace:</span> <span class="attr-value">urn:oecd:ties:crs:v3</span></div>
+        <div class="element-box">
+          <span class="element-name">Children (2 elements required):</span>
+          <ul style="margin:4px 0; padding-left:20px;">
+            <li><strong>MessageSpec</strong> (1..1)</li>
+            <li><strong>CrsBody</strong> (0..unbounded)</li>
+          </ul>
+        </div>
+      </div>
+    </details>
   </div>
 
   <div class="page-break"></div>
 
   <h2 id="chapter2">Chapter 2: MessageSpec Element (Page 44-45)</h2>
   <div class="diagram-box">
-    <p class="description"><strong>Diagram:</strong> Message Specification Element Structure<br>
+    <p class="description"><strong>Diagram:</strong> Message Specification Element Structure Diagram<br>
     <strong>Page Reference:</strong> 44-45<br>
     <strong>Description:</strong> The message specification element identifies the sending tax administration and contains metadata about the message.</p>
     <div class="element-box">
@@ -217,25 +320,12 @@
     <div class="element-box">
       <span class="element-name">Optional Children:</span>
       <ul style="margin:4px 0; padding-left:20px;">
-        <li><strong>SendingCompanyIN</strong> (0..1) – Sending company tax ID</li>
-        <li><strong>TransmittingCountry</strong> (1..1) – Sending country code</li>
-        <li><strong>ReceivingCountry</strong> (1..1) – Receiving country code</li>
-        <li><strong>Warning</strong> (0..1) – Free text warnings/limitations</li>
-        <li><strong>Contact</strong> (0..1) – Contact information</li>
-        <li><strong>CorrMessageRefId</strong> (0..unbounded) – Reference to correction message</li>
-      </ul>
-    </div>
-    <div class="element-box">
-      <span class="element-name">Attributes:</span>
-      <ul style="margin:4px 0; padding-left:20px;">
-        <li><strong>SendingCompanyIN</strong> (string, minLength=1, maxLength=100)</li>
-        <li><strong>TransmittingCountry</strong> (iso:CountryCode_Type)</li>
-        <li><strong>ReceivingCountry</strong> (iso:CountryCode_Type)</li>
-        <li><strong>MessageType</strong> (crs:MessageType_EnumType)</li>
-        <li><strong>MessageRefId</strong> (string, minLength=1, maxLength=170)</li>
-        <li><strong>CorrMessageRefId</strong> (0..unbounded, string, minLength=1, maxLength=170)</li>
-        <li><strong>ReportingPeriod</strong> (xsd:date)</li>
-        <li><strong>Timestamp</strong> (xsd:dateTime)</li>
+        <li><strong>SendingCompanyIN</strong> (0..1)</li>
+        <li><strong>TransmittingCountry</strong> (1..1)</li>
+        <li><strong>ReceivingCountry</strong> (1..1)</li>
+        <li><strong>Warning</strong> (0..1)</li>
+        <li><strong>Contact</strong> (0..1)</li>
+        <li><strong>CorrMessageRefId</strong> (0..unbounded)</li>
       </ul>
     </div>
   </div>
@@ -279,22 +369,16 @@
     <div class="element-box">
       <span class="element-name">Mandatory Children:</span>
       <ul style="margin:4px 0; padding-left:20px;">
-        <li><strong>DocSpec</strong> (1..1) – Document Specification</li>
-        <li><strong>Name</strong> (1..unbounded) – Legal name components</li>
+        <li><strong>DocSpec</strong> (1..1)</li>
+        <li><strong>Name</strong> (1..unbounded)</li>
       </ul>
     </div>
     <div class="element-box">
       <span class="element-name">Optional Children:</span>
       <ul style="margin:4px 0; padding-left:20px;">
-        <li><strong>ResCountryCode</strong> (0..unbounded) – Residence country code(s)</li>
-        <li><strong>IN</strong> (0..unbounded) – Identification number(s)</li>
-        <li><strong>Address</strong> (0..unbounded) – Physical address(es)</li>
-      </ul>
-    </div>
-    <div class="element-box">
-      <span class="element-name">Attribute of Type:</span>
-      <ul style="margin:4px 0; padding-left:20px;">
-        <li><strong>DocSpec (embedded):</strong> DocTypeIndic (OECD1), DocRefId (required)</li>
+        <li><strong>ResCountryCode</strong> (0..unbounded)</li>
+        <li><strong>IN</strong> (0..unbounded)</li>
+        <li><strong>Address</strong> (0..unbounded)</li>
       </ul>
     </div>
   </div>
@@ -316,13 +400,6 @@
         <li><strong>AccountReport</strong> (1..unbounded) – Individual account reports</li>
       </ul>
     </div>
-    <div class="element-box">
-      <span class="element-name">Optional Children:</span>
-      <ul style="margin:4px 0; padding-left:20px;">
-        <li><strong>Sponsor</strong> (0..1) – Sponsor organisation</li>
-        <li><strong>Intermediary</strong> (0..1) – Intermediary organisation</li>
-      </ul>
-    </div>
   </div>
   <p class="description"><strong>Note:</strong> Sponsor and Intermediary elements are available in the schema but are not used in CRS reporting scenarios. They are reserved for future use.</p>
 
@@ -340,297 +417,273 @@
     <div class="element-box">
       <span class="element-name">Mandatory Children:</span>
       <ul style="margin:4px 0; padding-left:20px;">
-        <li><strong>DocSpec</strong> (1..1) – Document specification</li>
-        <li><strong>AccountNumber</strong> (1..1) – Account number</li>
-        <li><strong>AccountHolder</strong> (1..1) – Account holder information</li>
-        <li><strong>AccountBalance</strong> (1..1) – Account balance</li>
-        <li><strong>DDProcedure</strong> (1..1) – Due diligence procedure</li>
-        <li><strong>AccountType</strong> (1..1) – Type of account</li>
+        <li><strong>DocSpec</strong> (1..1)</li>
+        <li><strong>AccountNumber</strong> (1..1)</li>
+        <li><strong>AccountHolder</strong> (1..1)</li>
+        <li><strong>AccountBalance</strong> (1..1)</li>
+        <li><strong>DDProcedure</strong> (1..1)</li>
+        <li><strong>AccountType</strong> (1..1)</li>
       </ul>
     </div>
     <div class="element-box">
       <span class="element-name">Optional Children:</span>
       <ul style="margin:4px 0; padding-left:20px;">
-        <li><strong>ControllingPerson</strong> (0..unbounded) – Controlling persons</li>
-        <li><strong>Payment</strong> (0..unbounded) – Payment information</li>
-        <li><strong>JointAccount</strong> (0..1) – Joint account information</li>
+        <li><strong>ControllingPerson</strong> (0..unbounded)</li>
+        <li><strong>Payment</strong> (0..unbounded)</li>
+        <li><strong>JointAccount</strong> (0..1)</li>
       </ul>
     </div>
   </div>
-</body>
-</html>
-<script>
-// XML element verisi (syntax highlighting için)
-const xmlLines = [
-  { cls: 'comment', text: '<?xml version="1.0" encoding="UTF-8"?>' },
-  { cls: 'directive', text: 'encoding="UTF-8"?>' },
-  { cls: 'tag', text: '<crs:CRS_OECD' },
-  { cls: 'attr', text: ' xmlns:crs="urn:oecd:ties:crs:v3"' },
-  { cls: 'attr', text: ' xmlns:cfc="urn:oecd:ties:commontypesfatcacrs:v2"' },
-  { cls: 'attr', text: ' xmlns:stf="urn:oecd:ties:crsstf:v5"' },
-  { cls: 'attr', text: ' xmlns:iso="urn:oecd:ties:isocrstypes:v1"' },
-  { cls: 'attr', text: ' xmlns:xsi="http://w3.org"' },
-  { cls: 'attr', text: ' version="3.0"' },
-  { cls: 'tag-close', text: '>' },
-  { cls: 'tag', text: '<crs:MessageSpec>' },
-  { cls: 'tag', text: '<crs:SendingCompanyIN>1234567890</crs:SendingCompanyIN>' },
-  { cls: 'tag', text: '<crs:TransmittingCountry>TR</crs:TransmittingCountry>' },
-  { cls: 'tag', text: '<crs:ReceivingCountry>TR</crs:ReceivingCountry>' },
-  { cls: 'tag', text: '<crs:MessageType>CRS</crs:MessageType>' },
-  { cls: 'comment', text: '<!-- v3.0 ZORUNLU FORMAT: GonderenUlke + Yil + AliciUlke + BenzersizID -->' },
-  { cls: 'tag', text: '<crs:MessageRefId>TR2026TR-FI1234567890-0001</crs:MessageRefId>' },
-  { cls: 'comment', text: '<!-- v3.0: Schema seviyesinde Validation (zorunlu) -->' },
-  { cls: 'tag', text: '<crs:MessageTypeIndic>CRS701</crs:MessageTypeIndic>' },
-  { cls: 'tag', text: '<crs:ReportingPeriod>2026-12-31</crs:ReportingPeriod>' },
-  { cls: 'tag', text: '<crs:Timestamp>2027-05-15T10:30:00</crs:Timestamp>' },
-  { cls: 'tag-close', text: '</crs:MessageSpec>' },
-  { cls: 'tag', text: '<crs:CrsBody>' },
-  { cls: 'tag', text: '<crs:ReportingFI>' },
-  { cls: 'tag', text: '<crs:ResCountryCode>TR</crs:ResCountryCode>' },
-  { cls: 'tag', text: '<crs:IN issuedBy="TR" INType="TIN">1234567890</crs:IN>' },
-  { cls: 'tag', text: '<crs:Name nameType="OECD207">Ornek Katilim ve Mevduat Bankasi A.S.</crs:Name>' },
-  { cls: 'tag', text: '<crs:Address legalAddressType="OECD303">' },
-  { cls: 'tag', text: '<cfc:CountryCode>TR</cfc:CountryCode>' },
-  { cls: 'tag', text: '<cfc:AddressFix>' },
-  { cls: 'tag', text: '<cfc:Street>Buyukdere Caddesi</cfc:Street>' },
-  { cls: 'tag', text: '<cfc:BuildingIdentifier>No: 100</cfc:BuildingIdentifier>' },
-  { cls: 'tag', text: '<cfc:DistrictName>Levent</cfc:DistrictName>' },
-  { cls: 'tag', text: '<cfc:PostCode>34330</cfc:PostCode>' },
-  { cls: 'tag', text: '<cfc:City>Istanbul</cfc:City>' },
-  { cls: 'tag-close', text: '</cfc:AddressFix>' },
-  { cls: 'tag-close', text: '</crs:Address>' },
-  { cls: 'tag', text: '<crs:DocSpec>' },
-  { cls: 'tag', text: '<stf:DocTypeIndic>OECD1</stf:DocTypeIndic>' },
-  { cls: 'comment', text: '<!-- v3.0 ZORUNLU FORMAT: Her durumda gonderen ulke kodu ile baslamali -->' },
-  { cls: 'tag', text: '<stf:DocRefId>TR2026-FI1234567890-RFI001</stf:DocRefId>' },
-  { cls: 'tag-close', text: '</crs:DocSpec>' },
-  { cls: 'tag-close', text: '</crs:ReportingFI>' },
-  { cls: 'comment', text: '<!-- SENARYO 1: Gercek Kisi + Ortak Hesap + Yeni Hesap + Mevduat Hesabi -->' },
-  { cls: 'tag', text: '<crs:AccountReport>' },
-  { cls: 'tag', text: '<crs:DocSpec><stf:DocTypeIndic>OECD1</stf:DocTypeIndic></crs:DocSpec>' },
-  { cls: 'tag', text: '<crs:AccountNumber AcctNumberType="OECD601">TR330006100519786457841326</crs:AccountNumber>' },
-  { cls: 'tag', text: '<crs:AccountHolder>' },
-  { cls: 'tag', text: '<crs:SelfCert>CRS901</crs:SelfCert>' },
-  { cls: 'tag', text: '<crs:Individual>' },
-  { cls: 'tag', text: '<crs:ResCountryCode>DE</crs:ResCountryCode>' },
-  { cls: 'tag', text: '<crs:Name nameType="OECD202">' },
-  { cls: 'tag', text: '<crs:FirstName>Hans</crs:FirstName>' },
-  { cls: 'tag', text: '<crs:LastName>Mueller</crs:LastName>' },
-  { cls: 'tag-close', text: '</crs:Name>' },
-  { cls: 'tag', text: '<crs:Address legalAddressType="OECD302">' },
-  { cls: 'tag', text: '<cfc:CountryCode>DE</cfc:CountryCode>' },
-  { cls: 'tag', text: '<cfc:AddressFix>' },
-  { cls: 'tag', text: '<cfc:Street>Berliner Strasse</cfc:Street>' },
-  { cls: 'tag', text: '<cfc:BuildingIdentifier>No: 42</cfc:BuildingIdentifier>' },
-  { cls: 'tag', text: '<cfc:PostCode>10115</cfc:PostCode>' },
-  { cls: 'tag', text: '<cfc:City>Berlin</cfc:City>' },
-  { cls: 'tag-close', text: '</cfc:AddressFix>' },
-  { cls: 'tag-close', text: '</crs:Address>' },
-  { cls: 'tag-close', text: '</crs:Individual>' },
-  { cls: 'tag-close', text: '</crs:AccountHolder>' },
-  { cls: 'tag', text: '<crs:AccountBalance currCode="EUR">15420.50</crs:AccountBalance>' },
-  { cls: 'tag', text: '<crs:Payment>' },
-  { cls: 'tag', text: '<crs:Type>CRS502</crs:Type>' },
-  { cls: 'tag', text: '<crs:PaymentAmnt currCode="EUR">310.25</crs:PaymentAmnt>' },
-  { cls: 'tag-close', text: '</crs:Payment>' },
-  { cls: 'comment', text: '<!-- v3.0 YENI ZORUNLU ALAN: Gecerli oz-beyan alindi -->' },
-  { cls: 'tag', text: '<crs:DDProcedure>CRS1201</crs:DDProcedure>' },
-  { cls: 'tag', text: '<crs:AccountType>CRS1101</crs:AccountType>' },
-  { cls: 'comment', text: '<!-- v3.0 YENI ALAN: Ortak hesap ise ortak sayisi (1-200) -->' },
-  { cls: 'tag', text: '<crs:JointAccount><crs:Number>2</crs:Number></crs:JointAccount>' },
-  { cls: 'tag-close', text: '</crs:AccountReport>' },
-  { cls: 'comment', text: '<!-- SENARYO 2: Pasif NFE Kurum + Coklu Kontrol Eden Kisi Rolu -->' },
-  { cls: 'tag', text: '<crs:AccountReport>' },
-  { cls: 'tag', text: '<crs:DocSpec><stf:DocTypeIndic>OECD1</stf:DocTypeIndic></crs:DocSpec>' },
-  { cls: 'tag', text: '<crs:AccountNumber AcctNumberType="OECD603" ClosedAccount="false">US0378331005</crs:AccountNumber>' },
-  { cls: 'tag', text: '<crs:AccountHolder>' },
-  { cls: 'tag', text: '<crs:SelfCert>CRS901</crs:SelfCert>' },
-  { cls: 'tag', text: '<crs:Organisation>' },
-  { cls: 'tag', text: '<crs:ResCountryCode>TR</crs:ResCountryCode>' },
-  { cls: 'tag', text: '<crs:IN issuedBy="TR" INType="TIN">9876543210</crs:IN>' },
-  { cls: 'tag', text: '<crs:Name nameType="OECD207">Anadolu Global Yatirim Ltd. Sti.</crs:Name>' },
-  { cls: 'tag', text: '<cfc:CountryCode>TR</cfc:CountryCode>' },
-  { cls: 'tag', text: '<cfc:AddressFix>' },
-  { cls: 'tag', text: '<cfc:City>Ankara</cfc:City>' },
-  { cls: 'tag-close', text: '</cfc:AddressFix>' },
-  { cls: 'tag-close', text: '</crs:Address>' },
-  { cls: 'tag-close', text: '</crs:Organisation>' },
-  { cls: 'tag', text: '<crs:AcctHolderType>CRS101</crs:AcctHolderType>' },
-  { cls: 'tag-close', text: '</crs:AccountHolder>' },
-  { cls: 'comment', text: '<!-- v3.0: Validation ve coklu rol (maxOccurs=unbounded) destekler -->' },
-  { cls: 'tag', text: '<crs:ControllingPerson>' },
-  { cls: 'tag', text: '<crs:Individual>' },
-  { cls: 'tag', text: '<crs:ResCountryCode>NL</crs:ResCountryCode>' },
-  { cls: 'tag', text: '<crs:TIN issuedBy="NL">998877665</crs:TIN>' },
-  { cls: 'tag', text: '<crs:Name nameType="OECD202">' },
-  { cls: 'tag', text: '<crs:FirstName>Sophie</crs:FirstName>' },
-  { cls: 'tag', text: '<crs:LastName>Van Dijk</crs:LastName>' },
-  { cls: 'tag-close', text: '</crs:Name>' },
-  { cls: 'tag-close', text: '</crs:Individual>' },
-  { cls: 'tag', text: '<crs:CtrlgPersonType>CRS801</crs:CtrlgPersonType>' },
-  { cls: 'tag', text: '<crs:CtrlgPersonType>CRS803</crs:CtrlgPersonType>' },
-  { cls: 'comment', text: '<!-- v3.0 YENI ZORUNLU ALAN: Kontrolen kisi oz-beyani -->' },
-  { cls: 'tag', text: '<crs:SelfCert>CRS1001</crs:SelfCert>' },
-  { cls: 'tag-close', text: '</crs:ControllingPerson>' },
-  { cls: 'tag', text: '<crs:AccountBalance currCode="USD">250000.00</crs:AccountBalance>' },
-  { cls: 'tag', text: '<crs:DDProcedure>CRS1202</crs:DDProcedure>' },
-  { cls: 'tag', text: '<crs:AccountType>CRS1102</crs:AccountType>' },
-  { cls: 'comment', text: '<!-- SENARYO 3: Elektronik Para Urunu (OECD606) ve Trust EquityInterestType (CRS404) -->' },
-  { cls: 'tag', text: '<crs:AccountReport>' },
-  { cls: 'tag', text: '<crs:DocSpec><stf:DocTypeIndic>OECD1</stf:DocTypeIndic></crs:DocSpec>' },
-  { cls: 'tag', text: '<crs:AccountNumber AcctNumberType="OECD606">EPARA-9000123456</crs:AccountNumber>' },
-  { cls: 'tag', text: '<crs:EquityInterestType>CRS404</crs:EquityInterestType>' },
-  { cls: 'tag', text: '<crs:SelfCert>CRS902</crs:SelfCert>' },
-  { cls: 'tag', text: '<crs:ResCountryCode>GB</crs:ResCountryCode>' },
-  { cls: 'tag', text: '<crs:TIN issuedBy="GB">AB123456C</crs:TIN>' },
-  { cls: 'tag', text: '<crs:Name nameType="OECD202">' },
-  { cls: 'tag', text: '<crs:FirstName>Oliver</crs:FirstName>' },
-  { cls: 'tag', text: '<crs:LastName>Smith</crs:LastName>' },
-  { cls: 'tag-close', text: '</crs:Name>' },
-  { cls: 'tag', text: '<crs:Address legalAddressType="OECD302">' },
-  { cls: 'tag', text: '<cfc:CountryCode>GB</cfc:CountryCode>' },
-  { cls: 'tag', text: '<cfc:AddressFix>' },
-  { cls: 'tag', text: '<cfc:City>London</cfc:City>' },
-  { cls: 'tag-close', text: '</cfc:AddressFix>' },
-  { cls: 'tag-close', text: '</crs:Address>' },
-  { cls: 'tag-close', text: '</crs:Individual>' },
-  { cls: 'tag-close', text: '</crs:AccountHolder>' },
-  { cls: 'tag', text: '<crs:AccountBalance currCode="GBP">8500.00</crs:AccountBalance>' },
-  { cls: 'tag', text: '<crs:DDProcedure>CRS1201</crs:DDProcedure>' },
-  { cls: 'tag', text: '<crs:AccountType>CRS1104</crs:AccountType>' },
-  { cls: 'tag-close', text: '</crs:AccountReport>' },
-  { cls: 'comment', text: '<!-- SENARYO 3: Elektronik Para Urunu (OECD606) ve Trust EquityInterestType (CRS404) -->' },
-  { cls: 'tag-close', text: '</crs:ReportingGroup>' },
-  { cls: 'tag-close', text: '</crs:CrsBody>' },
-  { cls: 'tag-close', text: '</crs:CRS_OECD>' }
-];
 
-let expandedNodes = new Set();
-let currentStep = 1;
+  <div class="page-break"></div>
 
-const xmlDisplay = document.getElementById('xml-display');
-const totalElementsEl = document.getElementById('total-elements');
-const mandatoryEl = document.getElementById('mandatory');
-const optionalEl = document.getElementById('optional');
-const hierarchyEl = document.getElementById('hierarchy');
-const stepBadges = document.querySelectorAll('.step-badge');
+  <h2 id="chapter7">Chapter 7: History and Corrections (Page 49-50)</h2>
+  <div class="diagram-box">
+    <p class="description"><strong>Diagram:</strong> Message Correction and History Structure Diagram<br>
+    <strong>Page Reference:</strong> 49-50<br>
+    <strong>Description:</strong> Shows how corrections are handled in the CRS schema. Messages can be corrections of previous messages, with proper references maintained.</p>
+    <div class="element-box">
+      <span class="element-name">CorrMessageRefId (in MessageSpec)</span>
+      <span class="element-type">Type: string (minLength=1, maxLength=170)</span>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Corretion Message Content:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>MessageTypeIndic:</strong> CRS702 (correction)</li>
+        <li><strong>CorrMessageRefId:</strong> Points to 1 or more previous messages</li>
+        <li><strong>MessageType:</strong> CRS701 (new information)</li>
+        <li><strong>DocTypeIndic:</strong> OECD1 (initial) or OECD2 (correction)</li>
+      </ul>
+    </div>
+  </div>
 
-function renderTree() {
-  xmlDisplay.innerHTML = '';
-  expandedNodes.clear();
-  renderNode({ name: 'CRS_OECD', type: 'xsd:element (root)', mandatory: true, children: xmlLines }, xmlDisplay);
-  updateStats();
-}
+  <div class="page-break"></div>
 
-function renderNode(node, container) {
-  const hasChildren = node.children && node.children.length > 0;
-  const isLeaf = !hasChildren;
+  <h2 id="chapter8">Chapter 8: Account Number Specification (Page 50-51)</h2>
+  <div class="diagram-box">
+    <p class="description"><strong>Diagram:</strong> Account Number Element Structure Diagram<br>
+    <strong>Page Reference:</strong> 50-51<br>
+    <strong>Description:</strong> Defines the structure of account numbers used in CRS reporting. Account numbers can be of various types depending on the account category.</p>
+    <div class="element-box">
+      <span class="element-name">AccountNumber</span>
+      <span class="element-type">Type: FIAccountNumber_Type (complex content type)</span>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Mandatory Attributes:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>AcctNumberType</strong> (crs:AcctNumberType_EnumType)</li>
+      </ul>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Optional Attributes:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>UndocumentedAccount</strong> (boolean, default=false)</li>
+        <li><strong>ClosedAccount</strong> (boolean, default=false)</li>
+        <li><strong>DormantAccount</strong> (boolean, default=false)</li>
+      </ul>
+    </div>
+  </div>
 
-  const details = document.createElement('details');
-  details.className = isLeaf ? 'leaf-node' : 'parent-node';
+  <div class="page-break"></div>
 
-  const summary = document.createElement('summary');
-  summary.className = isLeaf ? 'leaf-summary' : 'parent-summary';
+  <h2 id="chapter9">Chapter 9: DocSpec Document Specification (Page 51-52)</h2>
+  <div class="diagram-box">
+    <p class="description"><strong>Diagram:</strong> Document Specification Structure Diagram<br>
+    <strong>Page Reference:</strong> 51-52<br>
+    <strong>Description:</strong> Document specification element that identifies and classifies the type of report within the CRS message.</p>
+    <div class="element-box">
+      <span class="element-name">DocSpec</span>
+      <span class="element-type">Type: stf:DocSpec_Type</span>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Mandatory Elements:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>DocTypeIndic</strong> (required)</li>
+        <li><strong>DocRefId</strong> (required)</li>
+      </ul>
+    </div>
+    <div class="element-box">
+      <span class="element-name">DocTypeIndic Values:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>OECD1</strong> – Initial report</li>
+        <li><strong>OECD2</strong> – Correction report</li>
+        <li><strong>OECD0</strong> – Resend (when no changes required)</li>
+      </ul>
+    </div>
+  </div>
 
-  let html = '';
-  if (hasChildren) {
-    html += '<div class="toggle">▶</div>';
-  } else {
-    html += '<div class="toggle">·</div>';
-  }
+  <div class="page-break"></div>
 
-  const badgeClass = node.mandatory ? 'badge-mandatory' : 'badge-optional';
-  const badgeText = node.mandatory ? 'ZORUNLU' : 'İSTEĞE BAĞLI';
-  html += '<span class="badge ' + badgeClass + '">' + badgeText + '</span>';
-  html += '<span class="count-badge">' + (node.cardinality || '?') + '</span>';
-  html += '<span class="elem-name">' + node.name + '</span>';
-  html += '<span class="elem-type">' + node.type + '</span>';
+  <h2 id="chapter10">Chapter 10: Account Holder Types (Page 52-53)</h2>
+  <div class="diagram-box">
+    <p class="description"><strong>Diagram:</strong> Account Holder Entity Structure Diagram<br>
+    <strong>Page Reference:</strong> 52-53<br>
+    <strong>Description:</strong> Structure of account holders, which can be individuals (natural persons) or organisations (passive non-financial entities).</p>
+    <div class="element-box">
+      <span class="element-name">AccountHolder</span>
+      <span class="element-type">Type: AccountHolder_Type</span>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Optional Child (0..unbounded):</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>EquityInterestType</strong> (repeated)</li>
+      </ul>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Mandatory Children:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>SelfCert</strong> (1..1)</li>
+      </ul>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Choice Element (1..1):</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>Individual</strong> (PersonParty_Type)</li>
+        <li><strong>Organisation</strong> (OrganisationParty_Type)</li>
+      </ul>
+    </div>
+  </div>
 
-  summary.innerHTML = html;
-  details.appendChild(summary);
+  <div class="page-break"></div>
 
-  if (node.attributes && node.attributes.length > 0) {
-    const attrDiv = document.createElement('div');
-    attrDiv.className = 'children';
-    attrDiv.style.borderLeftColor = '#3b82f6';
-    attrDiv.style.marginTop = '4px';
-    node.attributes.forEach(attr => {
-      const attrRow = document.createElement('div');
-      attrRow.className = 'attr-row';
-      attrRow.innerHTML = '<span class="badge badge-attr">ATTR</span><span class="count-badge">' + attr.usage + '</span><span class="elem-name">@' + attr.name + '</span><span class="elem-type">' + attr.type + '</span>';
-      attrDiv.appendChild(attrRow);
-    });
-    details.appendChild(attrDiv);
-  }
+  <h2 id="chapter11">Chapter 11: Individual Person Structure (Page 53)</h2>
+  <div class="diagram-box">
+    <p class="description"><strong>Diagram:</strong> Individual Person Structure Diagram<br>
+    <strong>Page Reference:</strong> 53<br>
+    <strong>Description:</strong> Structure for identifying individual persons within AccountHolder. Contains personal identification, residence information, and birth details.</p>
+    <div class="element-box">
+      <span class="element-name">Individual</span>
+      <span class="element-type">Type: PersonParty_Type</span>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Mandatory Children:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>ResCountryCode</strong> (1..unbounded)</li>
+        <li><strong>Name</strong> (1..unbounded)</li>
+      </ul>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Optional Children:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>TIN</strong> (0..unbounded)</li>
+        <li><strong>Address</strong> (0..unbounded)</li>
+        <li><strong>Nationality</strong> (0..unbounded)</li>
+        <li><strong>BirthInfo</strong> (0..1)</li>
+      </ul>
+    </div>
+  </div>
 
-  if (hasChildren) {
-    const childrenDiv = document.createElement('div');
-    childrenDiv.className = 'children';
-    node.children.forEach(child => {
-      renderNode(child, childrenDiv);
-    });
-    details.appendChild(childrenDiv);
-  }
+  <div class="page-break"></div>
 
-  summary.addEventListener('click', function(e) {
-    e.stopImmediatePropagation();
-    if (!hasChildren) return;
+  <h2 id="chapter12">Chapter 12: Organisation Structure (Page 53)</h2>
+  <div class="diagram-box">
+    <p class="description"><strong>Diagram:</strong> Organisation Structure Diagram<br>
+    <strong>Page Reference:</strong> 53<br>
+    <strong>Description:</strong> Structure for identifying organisations within AccountHolder. Used for passive non-financial entities (NFE) and other reporting organisations.</p>
+    <div class="element-box">
+      <span class="element-name">Organisation</span>
+      <span class="element-type">Type: OrganisationParty_Type</span>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Mandatory Children:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>Name</strong> (1..unbounded)</li>
+      </ul>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Optional Children:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>ResCountryCode</strong> (0..unbounded)</li>
+        <li><strong>IN</strong> (0..unbounded)</li>
+        <li><strong>Address</strong> (0..unbounded)</li>
+      </ul>
+    </div>
+  </div>
 
-    if (expandedNodes.has(details.id)) {
-      expandedNodes.delete(details.id);
-      details.classList.remove('expanded');
-      details.classList.add('collapsed');
-      const children = details.querySelector('.children');
-      if (children) children.style.display = 'none';
-      const toggle = details.querySelector('.toggle');
-      if (toggle) toggle.textContent = '▶';
-    } else {
-      expandedNodes.add(details.id);
-      details.classList.remove('collapsed');
-      details.classList.add('expanded');
-      const childrenDiv = document.createElement('div');
-      childrenDiv.className = 'children';
-      node.children.forEach(child => {
-        renderNode(child, childrenDiv);
-      });
-      details.appendChild(childrenDiv);
-      const toggle = details.querySelector('.toggle');
-      if (toggle) toggle.textContent = '▼';
-      updateStats();
-    }
-  });
+  <div class="page-break"></div>
 
-  container.appendChild(details);
-}
+  <h2 id="chapter13">Chapter 13: Controlling Person (Page 54)</h2>
+  <div class="diagram-box">
+    <p class="description"><strong>Diagram:</strong> Controlling Person Structure Diagram<br>
+    <strong>Page Reference:</strong> 54<br>
+    <strong>Description:</strong> Structure for identifying controlling persons for organisations. Used in CRS reporting for entities that control the account.</p>
+    <div class="element-box">
+      <span class="element-name">ControllingPerson</span>
+      <span class="element-type">Type: xsd:complexType</span>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Mandatory Children:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>Individual</strong> (1..1)</li>
+        <li><strong>SelfCert</strong> (1..1)</li>
+      </ul>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Optional Children:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>CtrlgPersonType</strong> (1..unbounded)</li>
+      </ul>
+    </div>
+  </div>
 
-function renderTree() {
-  xmlDisplay.innerHTML = '';
-  expandedNodes.clear();
-  renderTree();
-  updateStats();
-}
+  <div class="page-break"></div>
 
-function updateStats() {
-  const visibleNodes = xmlDisplay.querySelectorAll('.line');
-  let visMand = 0, visOpt = 0;
-  visibleNodes.forEach(n => {
-    if (n.querySelector('.mandatory')) visMand++;
-    if (n.querySelector('.optional')) visOpt++;
-  });
-  totalElementsEl.textContent = visibleNodes.length;
-  mandatoryEl.textContent = 'Zorunlu: ' + visMand;
-  optionalEl.textContent = 'İsteğe bağlı: ' + visOpt;
-}
+  <h2 id="chapter14">Chapter 14: Payment and Account Balance (Page 54-55)</h2>
+  <div class="diagram-box">
+    <p class="description"><strong>Diagram:</strong> Payment and Account Balance Structure Diagram<br>
+    <strong>Page Reference:</strong> 54-55<br>
+    <strong>Description:</strong> Financial data elements that describe payment amounts and account balances. These are key data points in CRS reporting.</p>
+    <div class="element-box">
+      <span class="element-name">Payment</span>
+      <span class="element-type">Type: crs:Payment_Type</span>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Mandatory Children:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>Type</strong> (crs:CrsPaymentType_EnumType)</li>
+        <li><strong>PaymentAmnt</strong> (cfc:MonAmnt_Type)</li>
+      </ul>
+    </div>
+    <div class="element-box">
+      <span class="element-name">AccountBalance</span>
+      <span class="element-type">Type: cfc:MonAmnt_Type</span>
+    </div>
+    <div class="element-box">
+      <span class="element-name">AccountType Values:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>CRS1101</strong> – Depository Account</li>
+        <li><strong>CRS1102</strong> – Custodial Account</li>
+        <li><strong>CRS1103</strong> – Cash Value Insurance or Annuity</li>
+        <li><strong>CRS1104</strong> – Debt or Equity Interest</li>
+      </ul>
+    </div>
+  </div>
 
-renderTree();
-updateStats();
+  <div class="page-break"></div>
 
-document.querySelectorAll('.step-badge').forEach(b => {
-  b.addEventListener('click', () => {
-    currentStep = parseInt(b.id.replace('step', ''));
-    nextStep();
-  });
-});
-</script>
+  <h2 id="chapter15">Chapter 15: Joint Account (Page 55)</h2>
+  <div class="diagram-box">
+    <p class="description"><strong>Diagram:</strong> Joint Account Structure Diagram<br>
+    <strong>Page Reference:</strong> 55<br>
+    <strong>Description:</strong> Structure for identifying joint account information. Shows details about multiple account holders.</p>
+    <div class="element-box">
+      <span class="element-name">JointAccount</span>
+      <span class="element-type">Type: xsd:complexType</span>
+    </div>
+    <div class="element-box">
+      <span class="element-name">Mandatory Child:</span>
+      <ul style="margin:4px 0; padding-left:20px;">
+        <li><strong>Number</strong> (integer, 1-200) – Number of joint account holders</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="footer">
+    <p>This document represents pages 43-55 of the Amended Common Reporting Standard (CRS) XML Schema v3.0 User Guide for Tax Administrations.<br>
+    All diagrams and descriptions have been reproduced with compliance to the original content.<br>
+    Source: OECD Common Reporting Standard Documentation</p>
+  </div>
+</div>
 </body>
 </html>
