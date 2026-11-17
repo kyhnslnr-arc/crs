@@ -268,9 +268,11 @@ function renderNode(node, depth = 0, container) {
     div.appendChild(childrenDiv);
   }
 
-  if (hasChildren) {
-    div.onclick = function(e) {
-      e.stopPropagation();
+  // Tüm elementlere click handler ekle: olayın parent'a sıçmasını engelle
+  div.onclick = function(e) {
+    e.stopPropagation();
+    // Sadece parent (children olan) elementler açılabilir/kapanabilir
+    if (hasChildren) {
       if (expandedNodes.has(div.id)) {
         expandedNodes.delete(div.id);
         div.classList.remove('expanded');
@@ -279,8 +281,6 @@ function renderNode(node, depth = 0, container) {
         if (children) children.style.display = 'none';
         const toggle = div.querySelector('.toggle');
         if (toggle) toggle.textContent = '▶';
-        toggle.classList.remove('expanded-toggle');
-        toggle.classList.add('collapsed-toggle');
       } else {
         expandedNodes.add(div.id);
         div.classList.remove('collapsed');
@@ -301,8 +301,8 @@ function renderNode(node, depth = 0, container) {
         if (toggle) toggle.textContent = '▼';
         updateStats();
       }
-    };
-  }
+    }
+  };
 
   container.appendChild(div);
 }
