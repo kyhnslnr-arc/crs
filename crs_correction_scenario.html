@@ -37,7 +37,7 @@
   .highlight-black { background: rgba(15,23,42,0.9) !important; border-color: #f8fafc !important; color: #f8fafc; }
   .children { padding-left: 26px; border-left: 2px solid #334155; margin-top: 4px; animation: slideDown 0.3s ease; }
   @keyframes slideDown { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
-  #svg-arrows { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+  #svg-arrows { position: absolute; top: 100px; left: 0; width: 100%; height: 700px; pointer-events: none; z-index: 5; }
   .arrow-line { fill: none; stroke: #3b82f6; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .arrow-head { fill: #3b82f6; }
   .arrow-label { font-size: 0.75rem; fill: #38bdf8; font-weight: 600; pointer-events: none; }
@@ -88,8 +88,8 @@
                   <span class="badge badge-mandatory">1..1</span>
                 </summary>
                 <div class="children">
+                  <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name" id="initial-rfi-docrefid">@DocRefId</span><span class="elem-type">F1</span></div>
                   <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD1</span></div>
-                  <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">F1</span></div>
                 </div>
               </details>
               <details id="det-initial-rg">
@@ -108,8 +108,8 @@
                       <span class="badge badge-mandatory">1..1</span>
                     </summary>
                     <div class="children">
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name" id="initial-ar1-docrefid">@DocRefId</span><span class="elem-type">AR1</span></div>
                       <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD1</span></div>
-                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">AR1</span></div>
                     </div>
                   </details>
                   <details>
@@ -120,8 +120,8 @@
                       <span class="badge badge-mandatory">1..1</span>
                     </summary>
                     <div class="children">
-                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD1</span></div>
                       <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">AR2</span></div>
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD1</span></div>
                     </div>
                   </details>
                 </div>
@@ -159,8 +159,8 @@
                   <span class="badge badge-mandatory">1..1</span>
                 </summary>
                 <div class="children">
+                  <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name" id="c1-rfi-docrefid">@DocRefId</span><span class="elem-type">F1</span></div>
                   <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD0</span></div>
-                  <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">F1</span></div>
                 </div>
               </details>
               <details id="det-c1-rg">
@@ -179,9 +179,9 @@
                       <span class="badge badge-mandatory">1..1</span>
                     </summary>
                     <div class="children">
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name" id="c1-ar3-corrdocrefid">@CorrDocRefId</span><span class="elem-type">AR1</span></div>
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name" id="c1-ar3-docrefid">@DocRefId</span><span class="elem-type">AR3</span></div>
                       <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD2</span></div>
-                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">AR3</span></div>
-                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@CorrDocRefId</span><span class="elem-type">AR1</span></div>
                     </div>
                   </details>
                 </div>
@@ -219,8 +219,8 @@
                   <span class="badge badge-mandatory">1..1</span>
                 </summary>
                 <div class="children">
+                  <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name" id="c2-rfi-docrefid">@DocRefId</span><span class="elem-type">F1</span></div>
                   <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD0</span></div>
-                  <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">F1</span></div>
                 </div>
               </details>
               <details id="det-c2-rg">
@@ -239,9 +239,9 @@
                       <span class="badge badge-mandatory">1..1</span>
                     </summary>
                     <div class="children">
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name" id="c2-ar4-corrdocrefid">@CorrDocRefId</span><span class="elem-type">AR3</span></div>
+                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name" id="c2-ar4-docrefid">@DocRefId</span><span class="elem-type">AR4</span></div>
                       <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD2</span></div>
-                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocRefId</span><span class="elem-type">AR4</span></div>
-                      <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@CorrDocRefId</span><span class="elem-type">AR3</span></div>
                     </div>
                   </details>
                 </div>
@@ -311,46 +311,72 @@ function updateStepUI() {
   }
 }
 
+function getCenter(el) {
+  if (!el) return {x: 0, y: 0};
+  const r = el.getBoundingClientRect();
+  const container = document.getElementById('container');
+  const cr = container.getBoundingClientRect();
+  return {
+    x: r.left + r.width/2 - cr.left,
+    y: r.top + r.height/2 - cr.top + 100 // offset for svg top
+  };
+}
+
+function drawArrow(x1, y1, x2, y2, label) {
+  const midX = (x1 + x2) / 2;
+  const midY = (y1 + y2) / 2;
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  const dist = Math.sqrt(dx*dx + dy*dy);
+  const nx = dx / dist;
+  const ny = dy / dist;
+  // Arrow head at end
+  const ax = x2 - nx * 12;
+  const ay = y2 - ny * 12;
+  const perpX = -ny * 6;
+  const perpY = nx * 6;
+
+  let svg = `
+    <line class="arrow-line" x1="${x1}" y1="${y1}" x2="${ax}" y2="${ay}" />
+    <path d="M ${x2} ${y2} L ${ax + perpX} ${ay + perpY} L ${ax - perpX} ${ay - perpY} Z" class="arrow-head" />
+  `;
+  if (label) {
+    svg += `<text x="${midX}" y="${midY - 8}" class="arrow-label" text-anchor="middle">${label}</text>`;
+  }
+  return svg;
+}
+
 function drawArrows1() {
-  // Arrow from Initial ReportingFI DocRefId=F1 to Correction1 ReportingFI DocRefId=F1
-  // Arrow from Initial AR1 DocRefId=AR1 to Correction1 AccountReport CorrDocRefId=AR1
   svg.innerHTML = '';
-  // We'll draw these using absolute positions - approximate
-  // Since we can't easily get element positions without DOM measurement,
-  // we'll draw illustrative arrows between column areas
-  const w = 1400;
-  const col1X = 150;
-  const col2X = 650;
-  const y1 = 200; // ReportingFI area
-  const y2 = 350; // AccountReport area
 
-  // Arrow 1: ReportingFI -> ReportingFI
-  svg.innerHTML += `
-    <line class="arrow-line" x1="${col1X + 200}" y1="${y1}" x2="${col2X + 50}" y2="${y1}" />
-    <path d="M ${col2X + 50} ${y1} L ${col2X + 40} ${y1 - 5} L ${col2X + 40} ${y1 + 5} Z" class="arrow-head" />
-    <text x="${(col1X + 200 + col2X + 50) / 2}" y="${y1 - 10}" class="arrow-label">DocRefId = F1 (aynı kalır)</text>
-  `;
+  // Arrow 1: Initial ReportingFI DocRefId -> Correction1 ReportingFI DocRefId (F1 -> F1)
+  const p1 = getCenter(document.getElementById('initial-rfi-docrefid'));
+  const p2 = getCenter(document.getElementById('c1-rfi-docrefid'));
+  svg.innerHTML += drawArrow(p1.x, p1.y, p2.x, p2.y, 'DocRefId = F1');
 
-  // Arrow 2: AR1 -> Correction1 AR3 (CorrDocRefId)
-  svg.innerHTML += `
-    <line class="arrow-line" x1="${col1X + 200}" y1="${y2}" x2="${col2X + 50}" y2="${y2 + 80}" />
-    <path d="M ${col2X + 50} ${y2 + 80} L ${col2X + 40} ${y2 + 75} L ${col2X + 40} ${y2 + 85} Z" class="arrow-head" />
-    <text x="${(col1X + 200 + col2X + 50) / 2}" y="${y2 + 35}" class="arrow-label">CorrDocRefId = AR1</text>
-  `;
+  // Arrow 2: Initial AccountReport DocRefId (AR1) -> Correction1 AccountReport CorrDocRefId (AR1)
+  const p3 = getCenter(document.getElementById('initial-ar1-docrefid'));
+  const p4 = getCenter(document.getElementById('c1-ar3-corrdocrefid'));
+  svg.innerHTML += drawArrow(p3.x, p3.y, p4.x, p4.y, 'CorrDocRefId = AR1');
 }
 
 function drawArrows2() {
-  // Arrow from Correction1 AR3 to Correction2 AR4
   svg.innerHTML = '';
-  const col2X = 650;
-  const col3X = 1150;
-  const y2 = 350;
 
-  svg.innerHTML += `
-    <line class="arrow-line" x1="${col2X + 200}" y1="${y2}" x2="${col3X + 50}" y2="${y2}" />
-    <path d="M ${col3X + 50} ${y2} L ${col3X + 40} ${y2 - 5} L ${col3X + 40} ${y2 + 5} Z" class="arrow-head" />
-    <text x="${(col2X + 200 + col3X + 50) / 2}" y="${y2 - 10}" class="arrow-label">CorrDocRefId = AR3</text>
-  `;
+  // Arrow 1: Initial ReportingFI DocRefId -> Correction1 ReportingFI DocRefId (F1 -> F1)
+  const p1 = getCenter(document.getElementById('initial-rfi-docrefid'));
+  const p2 = getCenter(document.getElementById('c1-rfi-docrefid'));
+  svg.innerHTML += drawArrow(p1.x, p1.y, p2.x, p2.y, 'DocRefId = F1');
+
+  // Arrow 2: Initial AccountReport DocRefId (AR1) -> Correction1 AccountReport CorrDocRefId (AR1)
+  const p3 = getCenter(document.getElementById('initial-ar1-docrefid'));
+  const p4 = getCenter(document.getElementById('c1-ar3-corrdocrefid'));
+  svg.innerHTML += drawArrow(p3.x, p3.y, p4.x, p4.y, 'CorrDocRefId = AR1');
+
+  // Arrow 3: Correction1 AccountReport DocRefId (AR3) -> Correction2 AccountReport CorrDocRefId (AR3)
+  const p5 = getCenter(document.getElementById('c1-ar3-docrefid'));
+  const p6 = getCenter(document.getElementById('c2-ar4-corrdocrefid'));
+  svg.innerHTML += drawArrow(p5.x, p5.y, p6.x, p6.y, 'CorrDocRefId = AR3');
 }
 
 btnNext.addEventListener('click', () => {
@@ -365,7 +391,6 @@ updateStepUI();
 document.getElementById('sum-initial-ar1').addEventListener('click', (e) => {
   e.stopPropagation();
   if (currentStep === 1) {
-    // Auto-expand the details
     const det = document.getElementById('det-initial-ar1');
     det.open = true;
   }
