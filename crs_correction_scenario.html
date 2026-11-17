@@ -3,19 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRS OECD v3.0 - Initial, Correction 1, Correction 2 Senaryosu</title>
+<title>CRS OECD v3.0 — Initial, Correction 1, Correction 2 Senaryosu</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', system-ui, sans-serif; height: 100vh; overflow-y: auto; }
   #container { max-width: 1400px; margin: 0 auto; padding: 20px; }
   h1 { color: #38bdf8; text-align: center; margin-bottom: 30px; font-size: 1.5rem; }
   #step-indicator { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
-  .step-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; background: #334155; color: #94a3b8; border: 1px solid #475569; }
-  .step-badge.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
-  .step-badge.completed { background: #16a34a; color: #fff; border-color: #16a34a; }
+  .step-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; background: #16a34a; color: #fff; border: 1px solid #16a34a; }
   .columns { display: flex; gap: 30px; margin-bottom: 40px; }
   .column { flex: 1; background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; position: relative; min-height: 600px; }
-  .column.hidden { display: none; }
   .column-title { font-size: 1.1rem; font-weight: 700; color: #38bdf8; margin-bottom: 16px; text-align: center; border-bottom: 1px solid #334155; padding-bottom: 8px; }
   details { margin: 6px 0; }
   summary { display: flex; align-items: center; padding: 8px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; background: rgba(30,41,59,0.6); outline: none; color: #e2e8f0; font-size: 0.85rem; }
@@ -32,8 +29,7 @@
   .attr-row { font-size: 0.8rem; color: #94a3b8; padding: 4px 12px 4px 40px; margin: 2px 0; background: rgba(15,23,42,0.4); border-radius: 4px; border-left: 3px solid #3b82f6; cursor: default; }
   .highlight { background: rgba(37,99,235,0.25) !important; border-color: #2563eb !important; }
   .highlight-black { background: rgba(15,23,42,0.9) !important; border-color: #f8fafc !important; color: #f8fafc; }
-  .children { padding-left: 26px; border-left: 2px solid #334155; margin-top: 4px; animation: slideDown 0.3s ease; }
-  @keyframes slideDown { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+  .children { padding-left: 26px; border-left: 2px solid #334155; margin-top: 4px; }
   #summary { margin-top: 30px; background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; }
   #summary h3 { color: #38bdf8; margin-bottom: 12px; }
   #summary ul { margin-left: 20px; color: #cbd5e1; line-height: 1.6; }
@@ -45,16 +41,16 @@
 <div id="container">
   <h1>CRS OECD v3.0 — İlk Bildirim, Düzeltme 1 ve Düzeltme 2 Senaryosu</h1>
   <div id="step-indicator">
-    <span class="step-badge active" id="step1-badge">1. İlk Rapor (Initial)</span>
-    <span class="step-badge completed" id="step2-badge">2. Düzeltme 1 (Correction 1)</span>
-    <span class="step-badge completed" id="step3-badge">3. Düzeltme 2 (Correction 2)</span>
+    <span class="step-badge">1. İlk Rapor (Initial)</span>
+    <span class="step-badge">2. Düzeltme 1 (Correction 1)</span>
+    <span class="step-badge">3. Düzeltme 2 (Correction 2)</span>
   </div>
 
   <div class="columns" id="columns-container">
     <!-- COLUMN 1: INITIAL -->
     <div class="column" id="col-initial">
       <div class="column-title">Initial</div>
-      <details id="det-initial-root" open>
+      <details open>
         <summary class="root-node">
           <div class="toggle">▼</div>
           <span class="elem-name">&lt;CRS_OECD&gt;</span>
@@ -70,8 +66,8 @@
               <span class="badge badge-mandatory">1..1</span>
             </summary>
             <div class="children">
-              <details open>
-                <summary class="highlight" id="sum-initial-rfi">
+              <details open class="highlight">
+                <summary>
                   <div class="toggle">▼</div>
                   <span class="elem-name">&lt;ReportingFI&gt;</span>
                   <span class="elem-type">CorrectableOrganisationParty_Type</span>
@@ -82,7 +78,7 @@
                   <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD1</span></div>
                 </div>
               </details>
-              <details open id="det-initial-rg">
+              <details open>
                 <summary>
                   <div class="toggle">▼</div>
                   <span class="elem-name">&lt;ReportingGroup&gt;</span>
@@ -90,8 +86,8 @@
                   <span class="badge badge-mandatory">1..1</span>
                 </summary>
                 <div class="children">
-                  <details open id="det-initial-ar1">
-                    <summary class="highlight" id="sum-initial-ar1">
+                  <details open class="highlight">
+                    <summary>
                       <div class="toggle">▼</div>
                       <span class="elem-name">&lt;AccountReport&gt;</span>
                       <span class="elem-type">CorrectableAccountReport_Type</span>
@@ -125,7 +121,7 @@
     <!-- COLUMN 2: CORRECTION 1 -->
     <div class="column" id="col-correction1">
       <div class="column-title">Correction 1</div>
-      <details id="det-c1-root" open>
+      <details open>
         <summary class="root-node">
           <div class="toggle">▼</div>
           <span class="elem-name">&lt;CRS_OECD&gt;</span>
@@ -141,8 +137,8 @@
               <span class="badge badge-mandatory">1..1</span>
             </summary>
             <div class="children">
-              <details open>
-                <summary class="highlight" id="sum-c1-rfi">
+              <details open class="highlight">
+                <summary>
                   <div class="toggle">▼</div>
                   <span class="elem-name">&lt;ReportingFI&gt;</span>
                   <span class="elem-type">CorrectableOrganisationParty_Type</span>
@@ -153,7 +149,7 @@
                   <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD0</span></div>
                 </div>
               </details>
-              <details open id="det-c1-rg">
+              <details open>
                 <summary>
                   <div class="toggle">▼</div>
                   <span class="elem-name">&lt;ReportingGroup&gt;</span>
@@ -161,8 +157,8 @@
                   <span class="badge badge-mandatory">1..1</span>
                 </summary>
                 <div class="children">
-                  <details open id="det-c1-ar3">
-                    <summary class="highlight-black" id="sum-c1-ar3">
+                  <details open class="highlight-black">
+                    <summary>
                       <div class="toggle">▼</div>
                       <span class="elem-name">&lt;AccountReport&gt;</span>
                       <span class="elem-type">CorrectableAccountReport_Type</span>
@@ -185,7 +181,7 @@
     <!-- COLUMN 3: CORRECTION 2 -->
     <div class="column" id="col-correction2">
       <div class="column-title">Correction 2</div>
-      <details id="det-c2-root" open>
+      <details open>
         <summary class="root-node">
           <div class="toggle">▼</div>
           <span class="elem-name">&lt;CRS_OECD&gt;</span>
@@ -201,8 +197,8 @@
               <span class="badge badge-mandatory">1..1</span>
             </summary>
             <div class="children">
-              <details open>
-                <summary class="highlight" id="sum-c2-rfi">
+              <details open class="highlight">
+                <summary>
                   <div class="toggle">▼</div>
                   <span class="elem-name">&lt;ReportingFI&gt;</span>
                   <span class="elem-type">CorrectableOrganisationParty_Type</span>
@@ -213,7 +209,7 @@
                   <div class="attr-row"><span class="badge badge-attr">ATTR</span><span class="elem-name">@DocTypeIndic</span><span class="elem-type">OECD0</span></div>
                 </div>
               </details>
-              <details open id="det-c2-rg">
+              <details open>
                 <summary>
                   <div class="toggle">▼</div>
                   <span class="elem-name">&lt;ReportingGroup&gt;</span>
@@ -221,8 +217,8 @@
                   <span class="badge badge-mandatory">1..1</span>
                 </summary>
                 <div class="children">
-                  <details open id="det-c2-ar4">
-                    <summary class="highlight-black" id="sum-c2-ar4">
+                  <details open class="highlight-black">
+                    <summary>
                       <div class="toggle">▼</div>
                       <span class="elem-name">&lt;AccountReport&gt;</span>
                       <span class="elem-type">CorrectableAccountReport_Type</span>
@@ -254,22 +250,5 @@
     </ul>
   </div>
 </div>
-<script>
-// Basit durum takibi
-let currentStep = 1;
-
-const btnNext = document.getElementById('btn-next');
-
-function updateStepUI() {
-  document.querySelectorAll('.step-badge').forEach((b, i) => {
-    b.classList.remove('active', 'completed');
-    if (i + 1 < currentStep) b.classList.add('completed');
-    else if (i + 1 === currentStep) b.classList.add('active');
-  });
-}
-
-// Initialize
-updateStepUI();
-</script>
 </body>
 </html>
