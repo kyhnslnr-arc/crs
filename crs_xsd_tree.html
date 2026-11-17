@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRS OECD v3.0 XSD Element Ağacı</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', system-ui, sans-serif; height: 100vh; overflow: hidden; }
+  #container { display: flex; height: 100vh; }
+  #sidebar { width: 340px; background: #1e293b; border-right: 1px solid #334155; padding: 24px; overflow-y: auto; flex-shrink: 0; }
+  #sidebar h2 { color: #38bdf8; font-size: 1.25rem; margin-bottom: 16px; }
+  #sidebar p { font-size: 0.9rem; line-height: 1.5; margin-bottom: 12px; color: #cbd5e1; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-right: 6px; }
+  .badge-mandatory { background: #16a34a; color: #fff; }
+  .badge-optional { background: #ea580c; color: #fff; }
+  .badge-attr { background: #3b82f6; color: #fff; }
+  .count-badge { background: #475569; color: #e2e8f0; padding: 1px 6px; border-radius: 4px; font-size: 0.75rem; font-family: monospace; }
+  #stats { margin-top: 24px; background: #0f172a; border-radius: 8px; padding: 16px; border: 1px solid #334155; }
+  #stats h3 { color: #38bdf8; margin-bottom: 10px; font-size: 0.9rem; }
+  #stats div { font-size: 0.85rem; margin-bottom: 4px; color: #94a3b8; }
+  #main { flex: 1; background: #0f172a; padding: 32px; overflow-y: auto; position: relative; }
+  #tree { max-width: 900px; }
+  .node { display: flex; align-items: center; padding: 10px 14px; border-radius: 8px; margin: 4px 0; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; background: rgba(30,41,59,0.4); }
+  .node:hover { background: rgba(59,130,246,0.1); border-color: #3b82f6; }
+  .node.expanded { background: rgba(37,99,235,0.1); border-color: #2563eb; }
+  .node.collapsed .children { display: none; }
+  .node.leaf { cursor: default; }
+  .node.leaf:hover { background: transparent; border-color: transparent; }
+  .toggle { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; margin-right: 10px; font-size: 12px; font-weight: bold; color: #94a3b8; }
+  .node.expanded .toggle { color: #38bdf8; }
+  .node.collapsed .toggle { color: #64748b; }
+  .node.leaf .toggle { visibility: hidden; }
+  .elem-name { font-weight: 600; color: #f8fafc; flex: 1; min-width: 120px; }
+  .elem-type { color: #a78bfa; font-size: 0.85rem; margin-right: 10px; min-width: 140px; }
+  .children { padding-left: 26px; border-left: 2px solid #334155; margin-top: 6px; }
+  .root-node { background: rgba(59,130,246,0.15) !important; border-color: #3b82f6 !important; }
+  .attr-row { font-size: 0.8rem; color: #94a3b8; padding: 6px 14px 6px 50px; margin: 2px 0; background: rgba(15,23,42,0.3); border-radius: 6px; border-left: 3px solid #3b82f6; }
+  #progress { position: fixed; bottom: 0; left: 0; right: 0; height: 4px; background: #334155; }
+  #progress-bar { height: 100%; background: #38bdf8; width: 0%; transition: width 0.3s ease; }
+  #click-hint { position: fixed; top: 20px; right: 20px; background: rgba(15,23,42,0.9); border: 1px solid #334155; border-radius: 10px; padding: 14px 18px; font-size: 0.9rem; color: #cbd5e1; z-index: 50; pointer-events: none; backdrop-filter: blur(8px); }
+  #click-hint.show { animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.6} }
+  .node.added { animation: slideIn 0.4s ease forwards; }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+</style>
+</head>
+<body>
+<div id="click-hint" class="show">👆 Her elementi açmak için tıklayın</div>
+<div id="progress"><div id="progress-bar"></div></div>
+<div id="container">
+  <div id="sidebar">
+    <h2>CRS OECD XSD v3.0</h2>
+    <p>Bu animasyonda XSD şemasındaki elementler tek tek eklenir. Her elementi açmak için üzerine tıklayın.</p>
+    <p><span class="badge badge-mandatory">ZORUNLU</span> = minOccurs 1 (varsayılan)</p>
+    <p><span class="badge badge-optional">İSTEĞE BAĞLI</span> = minOccurs 0</p>
+    <p><span class="badge badge-attr">ÖZELLİK</span> = xsd:attribute</p>
+    <div id="stats">
+      <h3>İstatistik</h3>
+      <div id="stat-added">Eklenen: 0</div>
+      <div id="stat-mandatory">Zorunlu: 0</div>
+      <div id="stat-optional">İsteğe bağlı: 0</div>
+      <div id="stat-attributes">Özellikler: 0</div>
+    </div>
+  </div>
+  <div id="main">
+    <div id="tree"></div>
+  </div>
+</div>
+<script>
+const XSD_TREE = {
+  name: "CRS_OECD",
+  type: "xsd:element (root)",
+  cardinality: "1..1",
+  mandatory: true,
+  attributes: [
+    { name: "version", type: "stf:StringMin1Max10_Type", usage: "optional", desc: "CRS Version" }
+  ],
+  children: [
+    {
+      name: "MessageSpec",
+      type: "MessageSpec_Type",
+      cardinality: "1..1",
+      mandatory: true,
+      children: [
+        { name: "SendingCompanyIN", type: "stf:StringMin1Max200_Type", cardinality: "0..1", mandatory: false },
+        { name: "TransmittingCountry", type: "iso:CountryCode_Type", cardinality: "1..1", mandatory: true },
+        { name: "ReceivingCountry", type: "iso:CountryCode_Type", cardinality: "1..1", mandatory: true },
+        { name: "MessageType", type: "crs:MessageType_EnumType", cardinality: "1..1", mandatory: true },
+        { name: "Warning", type: "stf:StringMin1Max4000_Type", cardinality: "0..1", mandatory: false },
+        { name: "Contact", type: "stf:StringMin1Max4000_Type", cardinality: "0..1", mandatory: false },
+        { name: "MessageRefId", type: "stf:StringMin1Max170_Type", cardinality: "1..1", mandatory: true },
+        { name: "MessageTypeIndic", type: "crs:CrsMessageTypeIndic_EnumType", cardinality: "1..1", mandatory: true },
+        { name: "CorrMessageRefId", type: "stf:StringMin1Max170_Type", cardinality: "0..unbounded", mandatory: false },
+        { name: "ReportingPeriod", type: "xsd:date", cardinality: "1..1", mandatory: true },
+        { name: "Timestamp", type: "xsd:dateTime", cardinality: "1..1", mandatory: true }
+      ]
+    {
+      name: "CrsBody",
+      type: "CrsBody_Type",
+      cardinality: "0..unbounded",
+      mandatory: false,
+      children: [
+        {
+          name: "ReportingFI",
+          type: "CorrectableOrganisationParty_Type",
+          cardinality: "1..1",
+          mandatory: true,
+          children: [
+            { name: "DocSpec", type: "stf:DocSpec_Type", cardinality: "1..1", mandatory: true },
+            { name: "ResCountryCode", type: "iso:CountryCode_Type", cardinality: "0..unbounded", mandatory: false },
+            { name: "IN", type: "crs:OrganisationIN_Type", cardinality: "0..unbounded", mandatory: false },
+            { name: "Name", type: "cfc:NameOrganisation_Type", cardinality: "1..unbounded", mandatory: true },
+            { name: "Address", type: "cfc:Address_Type", cardinality: "0..unbounded", mandatory: false }
+          ]
+        },
+        {
+          name: "ReportingGroup",
+          type: "xsd:complexType (inline)",
+          cardinality: "0..unbounded",
+          mandatory: false,
+          children: [
+            { name: "Sponsor", type: "CorrectableOrganisationParty_Type", cardinality: "0..1", mandatory: false },
+            { name: "Intermediary", type: "CorrectableOrganisationParty_Type", cardinality: "0..1", mandatory: false },
+            {
+              name: "AccountReport",
+              type: "CorrectableAccountReport_Type",
+              cardinality: "0..unbounded",
+              mandatory: false,
+              children: [
+                { name: "DocSpec", type: "stf:DocSpec_Type", cardinality: "1..1", mandatory: true },
+                { name: "AccountNumber", type: "crs:FIAccountNumber_Type", cardinality: "1..1", mandatory: true },
+                {
+                  name: "AccountHolder",
+                  type: "AccountHolder_Type",
+                  cardinality: "1..1",
+                  mandatory: true,
+                  children: [
+                    { name: "EquityInterestType", type: "crs:EquityInterestType_EnumType", cardinality: "0..unbounded", mandatory: false },
+                    { name: "SelfCert", type: "crs:CrsSelfCert_EnumType", cardinality: "1..1", mandatory: true },
+                    {
+                      name: "Individual / Organisation (choice)",
+                      type: "PersonParty_Type / OrganisationParty_Type",
+                      cardinality: "1..1 (choice)",
+                      mandatory: true,
+                      children: [
+                        {
+                          name: "Individual",
+                          type: "PersonParty_Type",
+                          cardinality: "1..1",
+                          mandatory: true,
+                          children: [
+                            { name: "ResCountryCode", type: "iso:CountryCode_Type", cardinality: "1..unbounded", mandatory: true },
+                            { name: "TIN", type: "cfc:TIN_Type", cardinality: "0..unbounded", mandatory: false },
+                            { name: "Name", type: "crs:NamePerson_Type", cardinality: "1..unbounded", mandatory: true },
+                            { name: "Address", type: "cfc:Address_Type", cardinality: "0..unbounded", mandatory: false },
+                            { name: "Nationality", type: "iso:CountryCode_Type", cardinality: "0..unbounded", mandatory: false },
+                            { name: "BirthInfo", type: "xsd:complexType (inline)", cardinality: "0..1", mandatory: false }
+                          ]
+                        },
+                        {
+                          name: "Organisation",
+                          type: "OrganisationParty_Type",
+                          cardinality: "1..1",
+                          mandatory: true,
+                          children: [
+                            { name: "ResCountryCode", type: "iso:CountryCode_Type", cardinality: "0..unbounded", mandatory: false },
+                            { name: "IN", type: "crs:OrganisationIN_Type", cardinality: "0..unbounded", mandatory: false },
+                            { name: "Name", type: "cfc:NameOrganisation_Type", cardinality: "1..unbounded", mandatory: true },
+                            { name: "Address", type: "cfc:Address_Type", cardinality: "0..unbounded", mandatory: false }
+                          ]
+                        },
+                        { name: "AcctHolderType", type: "crs:CrsAcctHolderType_EnumType", cardinality: "1..1", mandatory: true }
+                      ]
+                    },
+                    { name: "ControllingPerson", type: "crs:ControllingPerson_Type", cardinality: "0..unbounded", mandatory: false },
+                    { name: "AccountBalance", type: "cfc:MonAmnt_Type", cardinality: "1..1", mandatory: true },
+                    { name: "Payment", type: "crs:Payment_Type", cardinality: "0..unbounded", mandatory: false },
+                    { name: "DDProcedure", type: "crs:OpeningDate_EnumType", cardinality: "1..1", mandatory: true },
+                    { name: "AccountType", type: "crs:CrsAccountType_EnumType", cardinality: "1..1", mandatory: true },
+                    { name: "JointAccount", type: "xsd:complexType (inline)", cardinality: "0..1", mandatory: false }
+                  ]
+                },
+                { name: "PoolReport", type: "ftc:CorrectablePoolReport_Type", cardinality: "0..unbounded", mandatory: false }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+let expandedNodes = new Set();
+let addedCount = 0;
+
+const treeEl = document.getElementById('tree');
+const statAdded = document.getElementById('stat-added');
+const statMandatory = document.getElementById('stat-mandatory');
+const statOptional = document.getElementById('stat-optional');
+const statAttributes = document.getElementById('stat-attributes');
+const progressBar = document.getElementById('progress-bar');
+
+function countTotalElements(node, count = 0) {
+  count++;
+  if (node.children) {
+    for (const child of node.children) {
+      count = countTotalElements(child, count);
+    }
+  }
+  if (node.attributes) {
+    count += node.attributes.length;
+  }
+  return count;
+}
+
+const totalElements = countTotalElements(XSD_TREE);
+
+function renderNode(node, depth = 0, container) {
+  const div = document.createElement('div');
+  div.className = 'node' + (depth === 0 ? ' root-node' : '');
+  div.id = 'node-' + node.name.replace(/\s/g, '_') + '-' + Math.random().toString(36).slice(2, 7);
+
+  const hasChildren = node.children && node.children.length > 0;
+  const isExpanded = expandedNodes.has(div.id);
+
+  if (hasChildren) {
+    div.classList.add(isExpanded ? 'expanded' : 'collapsed');
+  } else {
+    div.classList.add('leaf');
+  }
+
+  let html = '';
+  if (hasChildren) {
+    html += '<div class="toggle">' + (isExpanded ? '▼' : '▶') + '</div>';
+  } else {
+    html += '<div class="toggle">·</div>';
+  }
+
+  const badgeClass = node.mandatory ? 'badge-mandatory' : 'badge-optional';
+  const badgeText = node.mandatory ? 'ZORUNLU' : 'İSTEĞE BAĞLI';
+  html += '<span class="badge ' + badgeClass + '">' + badgeText + '</span>';
+  html += '<span class="count-badge">' + node.cardinality + '</span>';
+  html += '<span class="elem-name">' + node.name + '</span>';
+  html += '<span class="elem-type">' + node.type + '</span>';
+
+  div.innerHTML = html;
+
+  if (node.attributes && node.attributes.length > 0) {
+    const attrDiv = document.createElement('div');
+    attrDiv.className = 'children';
+    for (const attr of node.attributes) {
+      const attrRow = document.createElement('div');
+      attrRow.className = 'attr-row';
+      attrRow.innerHTML = '<span class="badge badge-attr">ATTR</span><span class="count-badge">' + attr.usage + '</span><span class="elem-name">@' + attr.name + '</span><span class="elem-type">' + attr.type + '</span>';
+      attrDiv.appendChild(attrRow);
+    }
+    div.appendChild(attrDiv);
+  }
+
+  if (hasChildren && isExpanded) {
+    const childrenDiv = document.createElement('div');
+    childrenDiv.className = 'children';
+    for (const child of node.children) {
+      renderNode(child, depth + 1, childrenDiv);
+    }
+    div.appendChild(childrenDiv);
+  }
+
+  if (hasChildren) {
+    div.onclick = function(e) {
+      e.stopPropagation();
+      if (expandedNodes.has(div.id)) {
+        expandedNodes.delete(div.id);
+        div.classList.remove('expanded');
+        div.classList.add('collapsed');
+        const children = div.querySelector('.children');
+        if (children) children.style.display = 'none';
+        const toggle = div.querySelector('.toggle');
+        if (toggle) toggle.textContent = '▶';
+        toggle.classList.remove('expanded-toggle');
+        toggle.classList.add('collapsed-toggle');
+      } else {
+        expandedNodes.add(div.id);
+        div.classList.remove('collapsed');
+        div.classList.add('expanded');
+        div.classList.add('added');
+        const existingChildren = div.querySelector('.children');
+        if (existingChildren) {
+          existingChildren.style.display = 'block';
+        } else {
+          const childrenDiv = document.createElement('div');
+          childrenDiv.className = 'children';
+          for (const child of node.children) {
+            renderNode(child, depth + 1, childrenDiv);
+          }
+          div.appendChild(childrenDiv);
+        }
+        const toggle = div.querySelector('.toggle');
+        if (toggle) toggle.textContent = '▼';
+        updateStats();
+      }
+    };
+  }
+
+  container.appendChild(div);
+}
+
+function renderTree() {
+  treeEl.innerHTML = '';
+  expandedNodes.clear();
+  addedCount = 0;
+  renderNode(XSD_TREE, 0, treeEl);
+  updateStats();
+}
+
+function updateStats() {
+  let mandatory = 0, optional = 0, attributes = 0;
+  function countStats(node) {
+    if (node.mandatory) mandatory++; else optional++;
+    if (node.attributes) attributes += node.attributes.length;
+    if (node.children) {
+      for (const child of node.children) {
+        // Only count if its parent is expanded
+      }
+    }
+  }
+  // Count visible nodes
+  const visibleNodes = treeEl.querySelectorAll('.node');
+  let visMand = 0, visOpt = 0, visAttr = 0;
+  visibleNodes.forEach(n => {
+    const isMand = n.querySelector('.badge-mandatory');
+    const isOpt = n.querySelector('.badge-optional');
+    const isAttr = n.querySelector('.badge-attr');
+    if (isMand) visMand++;
+    if (isOpt) visOpt++;
+    if (isAttr) visAttr++;
+  });
+  // Also count attribute rows separately
+  const attrRows = treeEl.querySelectorAll('.attr-row');
+  visAttr = attrRows.length;
+
+  statAdded.textContent = 'Eklenen: ' + visibleNodes.length + ' / ' + totalElements;
+  statMandatory.textContent = 'Zorunlu: ' + visMand;
+  statOptional.textContent = 'İsteğe bağlı: ' + visOpt;
+  statAttributes.textContent = 'Özellikler: ' + visAttr;
+
+  const pct = Math.round((visibleNodes.length / totalElements) * 100);
+  progressBar.style.width = pct + '%';
+}
+
+renderTree();
+
+</script>
+</body>
+</html>
+
