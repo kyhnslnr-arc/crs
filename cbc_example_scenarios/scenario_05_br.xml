@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cbc:CBC_OECD xmlns:stf="urn:oecd:ties:stf:v4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oecd:ties:cbc:v1 CbcXML_v1.0.1.xsd" version="1.0.1" xmlns:cbc="urn:oecd:ties:cbc:v1">
+  <cbc:MessageSpec>
+    <cbc:SendingEntityIN>BRXBCBC5000000005</cbc:SendingEntityIN>
+    <cbc:TransmittingCountry>BR</cbc:TransmittingCountry>
+    <cbc:ReceivingCountry>BR</cbc:ReceivingCountry>
+    <cbc:MessageType>CBC</cbc:MessageType>
+    <cbc:Language>EN</cbc:Language>
+    <cbc:MessageRefId>BR2024BRXBCBC5000000005CBC40120240619T143000005</cbc:MessageRefId>
+    <cbc:MessageTypeIndic>CBC401</cbc:MessageTypeIndic>
+    <cbc:ReportingPeriod>2023-12-31</cbc:ReportingPeriod>
+    <cbc:Timestamp>2024-06-19T14:30:00Z</cbc:Timestamp>
+  </cbc:MessageSpec>
+  <cbc:CbcBody>
+    <cbc:ReportingEntity>
+      <cbc:Entity>
+        <cbc:ResCountryCode>BR</cbc:ResCountryCode>
+        <cbc:TIN issuedBy="BR">12345678000190</cbc:TIN>
+        <cbc:Name>LatAm Resources do Brasil Ltda.</cbc:Name>
+        <cbc:Address legalAddressType="OECD303">
+          <cbc:CountryCode>BR</cbc:CountryCode>
+          <cbc:AddressFix>
+            <cbc:Street>Avenida Paulista, 1000</cbc:Street>
+            <cbc:BuildingIdentifier>Torre A</cbc:BuildingIdentifier>
+            <cbc:SuiteIdentifier />
+            <cbc:FloorIdentifier>25</cbc:FloorIdentifier>
+            <cbc:DistrictName>Bela Vista</cbc:DistrictName>
+            <cbc:POB />
+            <cbc:PostCode>01310-100</cbc:PostCode>
+            <cbc:City>Sao Paulo</cbc:City>
+            <cbc:CountrySubentity>SP</cbc:CountrySubentity>
+          </cbc:AddressFix>
+        </cbc:Address>
+      </cbc:Entity>
+      <cbc:ReportingRole>CBC701</cbc:ReportingRole>
+      <cbc:DocSpec>
+        <stf:DocTypeIndic>OECD1</stf:DocTypeIndic>
+        <stf:DocRefId>BR2024BRXBCBC5000000005CBC40120240619T143000005_005OECD1ENTBR</stf:DocRefId>
+      </cbc:DocSpec>
+    </cbc:ReportingEntity>
+    <cbc:CbcReports>
+      <cbc:DocSpec>
+        <stf:DocTypeIndic>OECD1</stf:DocTypeIndic>
+        <stf:DocRefId>BR2024BRXBCBC5000000005CBC40120240619T143000005_005OECD1REPTBR</stf:DocRefId>
+      </cbc:DocSpec>
+      <cbc:ResCountryCode>BR</cbc:ResCountryCode>
+      <cbc:Summary>
+        <cbc:Revenues>
+          <cbc:Unrelated currCode="BRL">2800000000</cbc:Unrelated>
+          <cbc:Related currCode="BRL">450000000</cbc:Related>
+          <cbc:Total currCode="BRL">3250000000</cbc:Total>
+        </cbc:Revenues>
+        <cbc:ProfitOrLoss currCode="BRL">420000000</cbc:ProfitOrLoss>
+        <cbc:TaxPaid currCode="BRL">85000000</cbc:TaxPaid>
+        <cbc:TaxAccrued currCode="BRL">92000000</cbc:TaxAccrued>
+        <cbc:Capital currCode="BRL">1850000000</cbc:Capital>
+        <cbc:Earnings currCode="BRL">980000000</cbc:Earnings>
+        <cbc:NbEmployees>7400</cbc:NbEmployees>
+        <cbc:Assets currCode="BRL">2600000000</cbc:Assets>
+      </cbc:Summary>
+      <cbc:ConstEntities>
+        <cbc:ConstEntity>
+          <cbc:ResCountryCode>BR</cbc:ResCountryCode>
+          <cbc:TIN issuedBy="BR">12345678000191</cbc:TIN>
+          <cbc:IN issuedBy="BR">12345678000191</cbc:IN>
+          <cbc:Name>LatAm Resources Mining do Brasil Ltda.</cbc:Name>
+          <cbc:Address legalAddressType="OECD303">
+            <cbc:CountryCode>BR</cbc:CountryCode>
+            <cbc:AddressFix>
+              <cbc:Street>Avenida das Nacoes Unidas, 12345</cbc:Street>
+              <cbc:BuildingIdentifier />
+              <cbc:SuiteIdentifier />
+              <cbc:FloorIdentifier />
+              <cbc:DistrictName>Brooklin</cbc:DistrictName>
+              <cbc:POB />
+              <cbc:PostCode>04578-000</cbc:PostCode>
+              <cbc:City>Sao Paulo</cbc:City>
+              <cbc:CountrySubentity>SP</cbc:CountrySubentity>
+            </cbc:AddressFix>
+          </cbc:Address>
+        </cbc:ConstEntity>
+        <cbc:IncorpCountryCode>BR</cbc:IncorpCountryCode>
+        <cbc:BizActivities>CBC504</cbc:BizActivities>
+        <cbc:OtherEntityInfo>Mining Operations - Brazil</cbc:OtherEntityInfo>
+      </cbc:ConstEntities>
+      <cbc:ConstEntities>
+        <cbc:ConstEntity>
+          <cbc:ResCountryCode>BR</cbc:ResCountryCode>
+          <cbc:TIN issuedBy="BR">12345678000192</cbc:TIN>
+          <cbc:IN issuedBy="BR">12345678000192</cbc:IN>
+          <cbc:Name>LatAm Resources Logistics do Brasil Ltda.</cbc:Name>
+          <cbc:Address legalAddressType="OECD303">
+            <cbc:CountryCode>BR</cbc:CountryCode>
+            <cbc:AddressFix>
+              <cbc:Street>Rodovia Anhanguera, Km 25</cbc:Street>
+              <cbc:BuildingIdentifier />
+              <cbc:SuiteIdentifier />
+              <cbc:FloorIdentifier />
+              <cbc:DistrictName>Vila Padre Anchieta</cbc:DistrictName>
+              <cbc:POB />
+              <cbc:PostCode>07197-000</cbc:PostCode>
+              <cbc:City>Campinas</cbc:City>
+              <cbc:CountrySubentity>SP</cbc:CountrySubentity>
+            </cbc:AddressFix>
+          </cbc:Address>
+        </cbc:ConstEntity>
+        <cbc:IncorpCountryCode>BR</cbc:IncorpCountryCode>
+        <cbc:BizActivities>CBC508</cbc:BizActivities>
+        <cbc:OtherEntityInfo>Logistics and Distribution - Brazil</cbc:OtherEntityInfo>
+      </cbc:ConstEntities>
+    </cbc:CbcReports>
+  </cbc:CbcBody>
+</cbc:CBC_OECD>
